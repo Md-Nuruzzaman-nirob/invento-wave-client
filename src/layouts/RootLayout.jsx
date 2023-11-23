@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/common/Navbar";
 
 const RootLayout = () => {
   return (
-    <div>
-      <h3>layouts</h3>
+    <div className="">
+      <Navbar />
       <Outlet />
+      <div className="h-screen"></div>
     </div>
   );
 };
