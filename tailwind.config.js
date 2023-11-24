@@ -6,7 +6,13 @@ export default {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Karla: ['Karla', 'sans-serif'],
+        sans: ['Graphik', 'sans-serif'],
+        serif: ['Merriweather', 'serif'],
+      },
+    },
   },
   plugins: [require("daisyui")],
   // daisyUI config (optional - here are the default values)

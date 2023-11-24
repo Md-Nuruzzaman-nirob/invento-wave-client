@@ -72,7 +72,7 @@ const Navbar = () => {
         {/* logo + name */}
         <div className="flex items-center gap-3">
           <img className="w-10 h-10" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl font-semibold">
+          <h2 className="text-xl md:text-2xl font-semibold text-blue-500">
             Invento <span className="text-red-500">Wave</span>
           </h2>
         </div>
@@ -132,7 +132,7 @@ const Navbar = () => {
       </div>
 
       {toggleMenu && (
-        <div className="flex flex-col gap-6 mx-5 md:mx-10 pt-5 pb-10 text-xl">
+        <div className="flex flex-col gap-6 mx-5 md:mx-10 pt-5 pb-10 text-xl text-blue-500">
           {navLink}
           <Link to={"/login"} className="btn btn-sm rounded-md">
             Login

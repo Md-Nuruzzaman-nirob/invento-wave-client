@@ -1,12 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
 
 const RootLayout = () => {
   return (
-    <div className="">
+    <div className="font-Karla">
       <Navbar />
       <Outlet />
-      <div className="h-screen"></div>
+      <Footer />
     </div>
   );
 };
