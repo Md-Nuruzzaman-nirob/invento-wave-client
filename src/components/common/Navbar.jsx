@@ -1,15 +1,19 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/invento-wave-logo.png";
 import { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [toggleProfile, setToggleProfile] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScrolled = () => {
       if (window.scrollY > 150) {
         setScrolled(true);
+        setToggleProfile(false);
       } else {
         setScrolled(false);
       }
@@ -21,7 +25,7 @@ const Navbar = () => {
     };
   }, []);
 
-  console.log(scrolled);
+  const { user, logout } = useAuth();
 
   const navLink = (
     <>
@@ -100,18 +104,61 @@ const Navbar = () => {
 
         {/* auth */}
         <div className="hidden lg:flex items-center gap-8">
-          <Link
-            to={"/login"}
-            className="text-lg text-sky-400 font-bold border border-transparent hover:border hover:border-sky-400 px-3 rounded-md"
-          >
-            Login
-          </Link>
-          <Link
-            to={"/register"}
-            className="btn btn-sm rounded-md bg-pink-600 border-none text-white hover:bg-pink-700"
-          >
-            Register
-          </Link>
+          {user?.email ? (
+            <div className="relative">
+              {user?.photoURL ? (
+                <button
+                  onClick={() => setToggleProfile(!toggleProfile)}
+                  className="btn btn-circle overflow-hidden border-2 border-none hover:border-none bg-transparent"
+                >
+                  <img className="w-full h-full" src={user.photoURL} alt="" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setToggleProfile(!toggleProfile)}
+                  className={`btn btn-circle border-2 ${
+                    toggleProfile
+                      ? "bg-white border-transparent hover:bg-white hover:border-transparent"
+                      : "border-sky-400 bg-transparent hover:border-sky-500 hover:bg-transparent"
+                  }`}
+                >
+                  <FaUser className="w-6 h-6 text-sky-400" />
+                </button>
+              )}
+              {toggleProfile && (
+                <div className="w-52 absolute top-16 right-0 bg-white text-black rounded-md p-3 space-y-3">
+                  <h2 className="btn btn-sm w-full text-base justify-start rounded-md">
+                    {user?.displayName}
+                  </h2>
+                  <h2 className="btn btn-sm w-full text-base justify-start rounded-md">
+                    {user?.email}
+                  </h2>
+                  <button
+                    onClick={() => logout()}
+                    className="btn btn-sm w-full text-base rounded-md"
+                  >
+                    Log out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              {" "}
+              <Link
+                to={"/login"}
+                className="text-lg text-sky-400 font-bold border border-transparent hover:border hover:border-sky-400 px-3 rounded-md"
+              >
+                Login
+              </Link>
+              <Link
+                to={"/register"}
+                className="btn btn-sm rounded-md bg-pink-600 border-none text-white hover:bg-pink-700"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
 
         <div className="lg:hidden">
@@ -153,12 +200,19 @@ const Navbar = () => {
       {toggleMenu && (
         <div className="flex flex-col gap-6 mx-5 md:mx-10 pt-5 pb-10 text-xl text-blue-500">
           {navLink}
-          <Link to={"/login"} className="btn btn-sm rounded-md">
-            Login
-          </Link>
-          <Link to={"/register"} className="btn btn-sm rounded-md">
-            Register
-          </Link>
+          {user?.email ? (
+            <></>
+          ) : (
+            <>
+              {" "}
+              <Link to={"/login"} className="btn btn-sm rounded-md">
+                Login
+              </Link>
+              <Link to={"/register"} className="btn btn-sm rounded-md">
+                Register
+              </Link>
+            </>
+          )}
         </div>
       )}
     </nav>

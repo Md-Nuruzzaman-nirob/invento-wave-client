@@ -5,13 +5,28 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
+import usePublicAPI from "../../hooks/usePublicAPI";
+import toast from "react-hot-toast";
+import SocialLoginPage from "./SocialLoginPage";
+
+// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+
+// const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const RegisterPage = () => {
   const [checked, setChecked] = useState(false);
   const [checkedError, setCheckedError] = useState(false);
+
+  const axiosPublic = usePublicAPI();
+  const { createUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -19,13 +34,60 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // const imageFile = { image: data.image[0] };
+
+    // try {
+    //   const res = await axiosPublic.post(image_hosting_api, imageFile, {
+    //     headers: {
+    //       "content-type": "multipart/form-data",
+    //     },
+    //   });
+    //   console.log(res.data);
+    // } catch (error) {
+    //   console.error("Error uploading image:", error.response);
+    // }
+
+    const name = data.name;
+    const image = data.url;
+    const email = data.email;
+    const password = data.password;
+
     if (!checked) {
       return setCheckedError("*accept terms and conditions");
     } else {
       setCheckedError("");
     }
+
+    const toastId = toast.loading("Progress...");
+
+    createUser(email, password)
+      .then(() => {
+        // update profile
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: image,
+        })
+          .then(() => {
+            const userInfo = {
+              name,
+              email,
+              image,
+            };
+            axiosPublic.post("/api/user/create", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                toast.success("Register Successful!!!", { id: toastId });
+                navigate(location?.state ? location.state : "/");
+              }
+            });
+          })
+          .catch((error) => {
+            toast.error(error.message.slice(10), { id: toastId });
+          });
+      })
+      .catch((error) => {
+        toast.error(error.message.slice(10), { id: toastId });
+      });
   };
   return (
     <>
@@ -36,9 +98,9 @@ const RegisterPage = () => {
         style={{
           backgroundImage: `url(${bg})`,
         }}
-        className="bg-cover bg-no-repeat bg-center h-screen"
+        className="bg-cover bg-no-repeat bg-center min-h-screen px-5"
       >
-        <div className="flex items-center justify-center gap-3 pt-10 mb-8">
+        <div className="flex items-center justify-center gap-3 pt-5 lg:pt-10 mb-5 lg:mb-8">
           <img className="w-8 h-8" src={logo} alt="" />
           <h2 className="text-xl md:text-2xl  text-sky-400">
             Invento <span className="text-pink-600">Wave</span>
@@ -49,10 +111,13 @@ const RegisterPage = () => {
         <div className="flex flex-col justify-center items-center">
           {" "}
           <div className="w-full max-w-md shadow-2xl bg-base-100 rounded-md">
-            <h2 className="text-center mt-8 text-lg font-bold opacity-90 uppercase">
+            <h2 className="text-center mt-5 sm:mt-8 text-lg font-bold opacity-90 uppercase">
               Register
             </h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="px-8 pb-8 pt-2">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="px-5 sm:px-8 pb-5 sm:pb-8 pt-2"
+            >
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-Karla font-semibold text-base opacity-60">
@@ -81,6 +146,22 @@ const RegisterPage = () => {
                   <span className="text-red-600">
                     *name cannot exceed 20 characters.
                   </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-Karla font-semibold text-base opacity-60">
+                    Image
+                  </span>
+                </label>
+                <input
+                  {...register("url")}
+                  type="url"
+                  placeholder="Enter your image..."
+                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
+                />
+                {errors.name?.type === "required" && (
+                  <span className="text-red-600">*name is required.</span>
                 )}
               </div>
               <div className="form-control">
@@ -116,7 +197,6 @@ const RegisterPage = () => {
                 <input
                   {...register("password", {
                     required: true,
-                    p: 2,
                     minLength: 6,
                     maxLength: 36,
                     pattern:
@@ -146,23 +226,23 @@ const RegisterPage = () => {
                   </span>
                 )}
               </div>
-              <div className="mt-2">
+              {/* <div className="mt-2">
                 <label className="label">
                   <span className="label-text font-Karla font-semibold text-base opacity-60">
                     Profile image
                   </span>
                 </label>
                 <input
-                  {...register("picture", { required: true })}
+                  {...register("image", { required: true })}
                   type="file"
                   name=""
                   id=""
                 />
-              </div>
-              {errors.picture?.type === "required" && (
+              </div> */}
+              {errors.image?.type === "required" && (
                 <span className="text-red-600">*image file is required.</span>
               )}
-              <div className="mt-6 flex items-center gap-2">
+              <div className="mt-4 sm:mt-6 flex items-center gap-2">
                 <p onClick={() => setChecked(!checked)}>
                   {checked ? (
                     <RiCheckboxCircleFill className="w-6 h-6 text-sky-400" />
@@ -181,14 +261,14 @@ const RegisterPage = () => {
               {checkedError && (
                 <span className="text-red-600">{checkedError}</span>
               )}
-              <div className="form-control mt-6">
+              <div className="form-control mt-4 sm:mt-6">
                 <button className="btn bg-sky-400 hover:bg-sky-500 text-lg text-white rounded-md">
                   Login
                 </button>
               </div>
             </form>
           </div>
-          <div className="text-center mt-8">
+          <div className="w-full max-w-md mx-auto text-center mt-5 sm:mt-8">
             <h3 className="font-semibold text-gray-300">
               Already have account?
               <Link
@@ -198,6 +278,7 @@ const RegisterPage = () => {
                 Login
               </Link>
             </h3>
+            <SocialLoginPage />
           </div>
         </div>
       </div>

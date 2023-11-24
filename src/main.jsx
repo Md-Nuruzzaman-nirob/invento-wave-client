@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import PageRoute from "./routes/PageRoute";
 import { HelmetProvider } from "react-helmet-async";
 import ContextProvider from "./context/ContextProvider";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ContextProvider>
         <RouterProvider router={PageRoute} />
       </ContextProvider>
+      <Toaster />
     </HelmetProvider>
   </React.StrictMode>
 );
