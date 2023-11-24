@@ -28,7 +28,11 @@ const Navbar = () => {
       <NavLink
         to="/"
         className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active" : ""
+          isPending
+            ? "pending"
+            : isActive
+            ? "text-pink-600 underline underline-offset-8"
+            : "text-sky-400 hover:text-pink-600"
         }
       >
         Home
@@ -36,7 +40,11 @@ const Navbar = () => {
       <NavLink
         to="/watch-demo"
         className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active" : ""
+          isPending
+            ? "pending"
+            : isActive
+            ? "text-pink-600 underline underline-offset-8"
+            : "text-sky-400 hover:text-pink-600"
         }
       >
         Watch Demo
@@ -44,7 +52,11 @@ const Navbar = () => {
       <NavLink
         to="/create-store"
         className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active" : ""
+          isPending
+            ? "pending"
+            : isActive
+            ? "text-pink-600 underline underline-offset-8"
+            : "text-sky-400 hover:text-pink-600"
         }
       >
         Create Store
@@ -52,7 +64,11 @@ const Navbar = () => {
       <NavLink
         to="/dashboard"
         className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active" : ""
+          isPending
+            ? "pending"
+            : isActive
+            ? "text-pink-600 underline underline-offset-8"
+            : "text-sky-400 hover:text-pink-600"
         }
       >
         Dashboard
@@ -62,23 +78,23 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full text-white ${
+      className={`fixed z-50 w-full text-white ${
         scrolled
-          ? "bg-white py-3 text-blue-500 transition-all duration-700 ease-in-out"
-          : "bg-transparent py-5 transition-all duration-700 ease-in-out"
+          ? "bg-white py-4 transition-all duration-700 ease-in-out"
+          : "bg-transparent py-6 transition-all duration-700 ease-in-out"
       }`}
     >
       <div className="max-w-7xl mx-5 md:mx-10 xl:mx-auto flex justify-between items-center">
         {/* logo + name */}
         <div className="flex items-center gap-3">
-          <img className="w-10 h-10" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl font-semibold text-blue-500">
-            Invento <span className="text-red-500">Wave</span>
+          <img className="w-8 h-8" src={logo} alt="" />
+          <h2 className="text-xl md:text-2xl font-semibold text-sky-400">
+            Invento <span className="text-pink-600">Wave</span>
           </h2>
         </div>
 
         {/* navLink */}
-        <div className="hidden lg:flex items-center gap-8 text-lg">
+        <div className="hidden lg:flex items-center gap-8 text-lg font-bold">
           {navLink}
         </div>
 
@@ -86,11 +102,14 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-8">
           <Link
             to={"/login"}
-            className="text-lg border border-transparent hover:border hover:border-white px-3"
+            className="text-lg text-sky-400 font-bold border border-transparent hover:border hover:border-sky-400 px-3 rounded-md"
           >
             Login
           </Link>
-          <Link to={"/register"} className="btn btn-sm rounded-md">
+          <Link
+            to={"/register"}
+            className="btn btn-sm rounded-md bg-pink-600 border-none text-white hover:bg-pink-700"
+          >
             Register
           </Link>
         </div>

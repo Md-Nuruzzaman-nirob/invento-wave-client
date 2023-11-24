@@ -19,12 +19,12 @@ const Footer = () => {
         </div>
 
         {/* menu part*/}
-        <div className="flex items-center justify-center gap-2 my-10">
-          <FaFacebook className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 ease-linear" />
-          <FaXTwitter className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 ease-linear" />
-          <FaInstagram className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 ease-linear" />
-          <FaGoogle className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 ease-linear" />
-          <FaGooglePlay className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 ease-linear" />
+        <div className="flex items-center justify-center gap-5 my-10">
+          <FaFacebook className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
+          <FaXTwitter className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
+          <FaInstagram className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
+          <FaGoogle className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
+          <FaGooglePlay className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
         </div>
         <div className="text-center text-sm opacity-60">
           <p>Copyright © 2023 - All right reserved by Invento Wave</p>
