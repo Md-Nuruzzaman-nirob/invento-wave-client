@@ -3,7 +3,6 @@ import RootLayout from "../layouts/RootLayout";
 import HomePage from "../pages/home/HomePage";
 import ErrorPage from "../pages/error/ErrorPage";
 import CreateStorePage from "../pages/create-store/CreateStorePage";
-import WatchDemoPage from "../pages/demo/WatchDemoPage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 
@@ -16,10 +15,6 @@ const PageRoute = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-      },
-      {
-        path: "watch-demo",
-        element: <WatchDemoPage />,
       },
       {
         path: "create-store",

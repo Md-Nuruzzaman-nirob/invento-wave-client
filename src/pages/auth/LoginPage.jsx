@@ -62,7 +62,7 @@ const LoginPage = () => {
       >
         <div className="flex items-center justify-center gap-3 pt-10 mb-8">
           <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl  text-sky-400">
+          <h2 className="text-xl md:text-2xl  text-sky-500">
             Invento <span className="text-pink-600">Wave</span>
           </h2>
         </div>
@@ -122,9 +122,9 @@ const LoginPage = () => {
               <div className="my-6 flex items-center gap-2">
                 <p onClick={() => setChecked(!checked)}>
                   {checked ? (
-                    <RiCheckboxCircleFill className="w-6 h-6 text-sky-400" />
+                    <RiCheckboxCircleFill className="w-6 h-6 text-sky-500" />
                   ) : (
-                    <RiCheckboxBlankCircleLine className="w-6 h-6 text-sky-400" />
+                    <RiCheckboxBlankCircleLine className="w-6 h-6 text-sky-500" />
                   )}
                 </p>
                 <p
@@ -136,7 +136,7 @@ const LoginPage = () => {
                 </p>
               </div>
               <div className="form-control">
-                <button className="btn bg-sky-400 hover:bg-sky-500 text-lg text-white rounded-md">
+                <button className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md">
                   Login
                 </button>
               </div>

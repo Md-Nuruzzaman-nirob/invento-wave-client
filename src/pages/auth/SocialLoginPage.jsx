@@ -3,19 +3,37 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import usePublicAPI from "../../hooks/usePublicAPI";
 
 const SocialLoginPage = () => {
   const { googleLogin, githubLogin } = useAuth();
+  const axiosPublic = usePublicAPI();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleSocialLogin = async (login) => {
+  const handleSocialLogin = async (login, social) => {
+    const toastId = toast.loading("Progress...");
     try {
-      await login();
-      toast.success("Register Successful!");
-      navigate(location?.state ? location.state : "/");
+      const res = await login();
+
+      const userInfo = {
+        name: res?.user?.displayName,
+        email: res?.user?.email,
+        image: res?.user?.photoURL,
+      };
+      axiosPublic
+        .post(`/api/user/create/${res?.user?.email}`, userInfo)
+        .then((res) => {
+          if (res.data.insertedId) {
+            toast.success(`${social} login Successful!!!`, { id: toastId });
+            navigate(location?.state ? location.state : "/");
+          } else if (res.data.message) {
+            toast.success(`${social} login Successful!!!`, { id: toastId });
+            navigate(location?.state ? location.state : "/");
+          }
+        });
     } catch (error) {
-      toast.error(error.message.slice(10));
+      toast.error(error.message.slice(10), { id: toastId });
     }
   };
   return (
@@ -25,14 +43,14 @@ const SocialLoginPage = () => {
       </div>
       <div className="w-full flex items-center gap-4">
         <button
-          onClick={() => handleSocialLogin(googleLogin)}
-          className="flex-1 btn btn-sm md:btn-md border-transparent bg-white font-bold font-Montserrat rounded-md"
+          onClick={() => handleSocialLogin(googleLogin, "Google")}
+          className="flex-1 btn btn-md border-transparent bg-white font-bold font-Montserrat rounded-md"
         >
           <FcGoogle></FcGoogle> Google
         </button>
         <button
-          onClick={() => handleSocialLogin(githubLogin)}
-          className="flex-1 btn btn-sm md:btn-md border-transparent bg-white font-bold font-Montserrat rounded-md"
+          onClick={() => handleSocialLogin(githubLogin, "Github")}
+          className="flex-1 btn btn-md border-transparent bg-white font-bold font-Montserrat rounded-md"
         >
           <FaGithub /> Github
         </button>

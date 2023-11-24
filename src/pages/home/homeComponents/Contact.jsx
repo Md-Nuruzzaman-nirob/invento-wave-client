@@ -18,21 +18,21 @@ const Contact = () => {
         <div className="flex flex-col lg:flex-row gap-10 md:gap-20 lg:gap-40 mt-10 md:mt-20">
           <div className="space-y-10">
             <div className="flex items-center gap-6">
-              <AiTwotoneMail className="w-8 h-8 text-sky-400" />
+              <AiTwotoneMail className="w-8 h-8 text-sky-500" />
               <div className="">
                 <h3 className="font-bold opacity-90">Email</h3>
                 <p className="font-semibold opacity-60">example@abc.com</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <BsPhone className="w-8 h-8 text-sky-400" />
+              <BsPhone className="w-8 h-8 text-sky-500" />
               <div className="">
                 <h3 className="font-bold opacity-90">Phone</h3>
                 <p className="font-semibold opacity-60">012-345-6789</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <FaLocationArrow className="w-10 h-10 text-sky-400" />
+              <FaLocationArrow className="w-10 h-10 text-sky-500" />
               <div className="">
                 <h3 className="font-bold opacity-90">Address</h3>
                 <p className="font-semibold opacity-60">
@@ -98,7 +98,7 @@ const Contact = () => {
             </div>
             <div className="text-center mt-12">
               <input
-                className="btn bg-sky-400 hover:bg-sky-500 text-lg text-white rounded-md"
+                className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md"
                 type="submit"
                 value="Submit"
               />

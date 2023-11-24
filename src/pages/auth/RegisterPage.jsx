@@ -102,7 +102,7 @@ const RegisterPage = () => {
       >
         <div className="flex items-center justify-center gap-3 pt-5 lg:pt-10 mb-5 lg:mb-8">
           <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl  text-sky-400">
+          <h2 className="text-xl md:text-2xl  text-sky-500">
             Invento <span className="text-pink-600">Wave</span>
           </h2>
         </div>
@@ -139,7 +139,7 @@ const RegisterPage = () => {
                 )}
                 {errors.name?.type === "minLength" && (
                   <span className="text-red-600">
-                    *name must be at least 3 characters long.
+                    *name must be at least 4 characters long.
                   </span>
                 )}
                 {errors.name?.type === "maxLength" && (
@@ -245,9 +245,9 @@ const RegisterPage = () => {
               <div className="mt-4 sm:mt-6 flex items-center gap-2">
                 <p onClick={() => setChecked(!checked)}>
                   {checked ? (
-                    <RiCheckboxCircleFill className="w-6 h-6 text-sky-400" />
+                    <RiCheckboxCircleFill className="w-6 h-6 text-sky-500" />
                   ) : (
-                    <RiCheckboxBlankCircleLine className="w-6 h-6 text-sky-400" />
+                    <RiCheckboxBlankCircleLine className="w-6 h-6 text-sky-500" />
                   )}
                 </p>
                 <p
@@ -262,7 +262,7 @@ const RegisterPage = () => {
                 <span className="text-red-600">{checkedError}</span>
               )}
               <div className="form-control mt-4 sm:mt-6">
-                <button className="btn bg-sky-400 hover:bg-sky-500 text-lg text-white rounded-md">
+                <button className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md">
                   Login
                 </button>
               </div>

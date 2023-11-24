@@ -36,22 +36,10 @@ const Navbar = () => {
             ? "pending"
             : isActive
             ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-400 hover:text-pink-600"
+            : "text-sky-500 hover:text-pink-600"
         }
       >
         Home
-      </NavLink>
-      <NavLink
-        to="/watch-demo"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-400 hover:text-pink-600"
-        }
-      >
-        Watch Demo
       </NavLink>
       <NavLink
         to="/create-store"
@@ -60,7 +48,7 @@ const Navbar = () => {
             ? "pending"
             : isActive
             ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-400 hover:text-pink-600"
+            : "text-sky-500 hover:text-pink-600"
         }
       >
         Create Store
@@ -72,7 +60,7 @@ const Navbar = () => {
             ? "pending"
             : isActive
             ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-400 hover:text-pink-600"
+            : "text-sky-500 hover:text-pink-600"
         }
       >
         Dashboard
@@ -92,7 +80,7 @@ const Navbar = () => {
         {/* logo + name */}
         <div className="flex items-center gap-3">
           <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl font-semibold text-sky-400">
+          <h2 className="text-xl md:text-2xl font-semibold text-sky-500">
             Invento <span className="text-pink-600">Wave</span>
           </h2>
         </div>
@@ -119,18 +107,24 @@ const Navbar = () => {
                   className={`btn btn-circle border-2 ${
                     toggleProfile
                       ? "bg-white border-transparent hover:bg-white hover:border-transparent"
-                      : "border-sky-400 bg-transparent hover:border-sky-500 hover:bg-transparent"
+                      : "border-sky-500 bg-transparent hover:border-sky-500 hover:bg-transparent"
                   }`}
                 >
-                  <FaUser className="w-6 h-6 text-sky-400" />
+                  <FaUser className="w-6 h-6 text-sky-500" />
                 </button>
               )}
               {toggleProfile && (
                 <div className="w-52 absolute top-16 right-0 bg-white text-black rounded-md p-3 space-y-3">
-                  <h2 className="btn btn-sm w-full text-base justify-start rounded-md">
+                  <h2
+                    title={user?.displayName}
+                    className="btn btn-sm w-full text-base justify-start rounded-md overflow-hidden"
+                  >
                     {user?.displayName}
                   </h2>
-                  <h2 className="btn btn-sm w-full text-base justify-start rounded-md">
+                  <h2
+                    title={user?.email}
+                    className="btn btn-sm w-full text-base justify-start rounded-md overflow-hidden"
+                  >
                     {user?.email}
                   </h2>
                   <button
@@ -147,7 +141,7 @@ const Navbar = () => {
               {" "}
               <Link
                 to={"/login"}
-                className="text-lg text-sky-400 font-bold border border-transparent hover:border hover:border-sky-400 px-3 rounded-md"
+                className="btn btn-sm text-base text-pink-600 border border-pink-600  hover:border-pink-700 bg-transparent hover:bg-transparent px-3 rounded-md"
               >
                 Login
               </Link>
@@ -165,7 +159,7 @@ const Navbar = () => {
           <label
             className={`btn btn-square swap swap-rotate  bg-transparent hover:bg-transparent  rounded-md  ${
               scrolled
-                ? "border-[#35b8e0] text-[#35b8e0] transition-colors duration-700 ease-in-out"
+                ? "border-sky-500 text-sky-500 transition-colors duration-700 ease-in-out"
                 : "text-white transition-colors duration-700 ease-in-out"
             }`}
           >
@@ -198,10 +192,46 @@ const Navbar = () => {
       </div>
 
       {toggleMenu && (
-        <div className="flex flex-col gap-6 mx-5 md:mx-10 pt-5 pb-10 text-xl text-blue-500">
+        <div className="flex flex-col gap-6 px-5 md:px-10 pt-5 pb-10 text-xl text-blue-500 bg-white">
           {navLink}
           {user?.email ? (
-            <></>
+            <div className="relative">
+              {user?.photoURL ? (
+                <button
+                  onClick={() => setToggleProfile(!toggleProfile)}
+                  className="btn btn-circle overflow-hidden border-2 border-none hover:border-none bg-transparent"
+                >
+                  <img className="w-full h-full" src={user.photoURL} alt="" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setToggleProfile(!toggleProfile)}
+                  className={`btn btn-circle border-2 ${
+                    toggleProfile
+                      ? "bg-white border-transparent hover:bg-white hover:border-transparent"
+                      : "border-sky-500 bg-transparent hover:border-sky-500 hover:bg-transparent"
+                  }`}
+                >
+                  <FaUser className="w-6 h-6 text-sky-500" />
+                </button>
+              )}
+              {toggleProfile && (
+                <div className="max-w-xs bg-white text-black rounded-md p-3 space-y-3">
+                  <h2 className="btn btn-sm w-full text-base justify-start rounded-md">
+                    {user?.displayName}
+                  </h2>
+                  <h2 className="btn btn-sm w-full text-base justify-start rounded-md">
+                    {user?.email}
+                  </h2>
+                  <button
+                    onClick={() => logout()}
+                    className="btn btn-sm w-full text-base rounded-md"
+                  >
+                    Log out
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               {" "}
