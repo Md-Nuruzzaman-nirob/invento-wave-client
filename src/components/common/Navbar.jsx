@@ -3,11 +3,14 @@ import logo from "../../assets/invento-wave-logo.png";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaUser } from "react-icons/fa";
+import useFetchSecure from "../../hooks/useFetchSecure";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [toggleProfile, setToggleProfile] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScrolled = () => {
@@ -25,7 +28,11 @@ const Navbar = () => {
     };
   }, []);
 
-  const { user, logout } = useAuth();
+  const { data, refetch } = useFetchSecure(
+    `api/user/${user?.email}`,
+    user?.email
+  );
+  refetch();
 
   const navLink = (
     <>
@@ -41,30 +48,46 @@ const Navbar = () => {
       >
         Home
       </NavLink>
-      <NavLink
-        to="/create-store"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-500 hover:text-pink-600"
-        }
-      >
-        Create Store
-      </NavLink>
-      <NavLink
-        to="/dashboard"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-500 hover:text-pink-600"
-        }
-      >
-        Dashboard
-      </NavLink>
+      {data?.role === "admin" ? (
+        <NavLink
+          to="/dashboard/manage-shop"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "text-sky-500 hover:text-pink-600"
+          }
+        >
+          Dashboard
+        </NavLink>
+      ) : data?.role === "Shop-Manager" ? (
+        <NavLink
+          to="/dashboard/manage-product"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "text-sky-500 hover:text-pink-600"
+          }
+        >
+          Dashboard
+        </NavLink>
+      ) : (
+        <NavLink
+          to="/create-store"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "text-sky-500 hover:text-pink-600"
+          }
+        >
+          Create Store
+        </NavLink>
+      )}
     </>
   );
 

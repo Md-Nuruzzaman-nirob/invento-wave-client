@@ -20,6 +20,7 @@ const SocialLoginPage = () => {
         name: res?.user?.displayName,
         email: res?.user?.email,
         image: res?.user?.photoURL,
+        role: "user",
       };
       axiosPublic
         .post(`/api/user/create/${res?.user?.email}`, userInfo)

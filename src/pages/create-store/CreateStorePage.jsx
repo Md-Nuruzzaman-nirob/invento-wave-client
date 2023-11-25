@@ -7,6 +7,8 @@ import useSecureAPI from "../../hooks/useSecureAPI";
 import usePublicAPI from "../../hooks/usePublicAPI";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useFetchSecure from "../../hooks/useFetchSecure";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
@@ -14,6 +16,19 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const CreateStorePage = () => {
   const [description, setDescription] = useState("");
+
+  const navigate = useNavigate();
+
+  const { data, refetch } = useFetchSecure(
+    `api/user/${user?.email}`,
+    user?.email
+  );
+  refetch();
+
+  if (data?.role !== "user") {
+    navigate("/");
+  }
+
   const {
     register,
     handleSubmit,
@@ -61,6 +76,7 @@ const CreateStorePage = () => {
                 "Congratulations! Your shop has been successfully created 🎉",
                 { id: toastId, duration: 4000 }
               );
+              navigate("/dashboard/manage-product");
             }
           });
         } else if (res.data.message) {

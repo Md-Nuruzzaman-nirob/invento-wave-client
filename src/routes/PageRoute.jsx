@@ -5,6 +5,16 @@ import ErrorPage from "../pages/error/ErrorPage";
 import CreateStorePage from "../pages/create-store/CreateStorePage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import SubscriptionPayment from "../pages/dashboard/manager/SubscriptionPayment";
+import SalesCollection from "../pages/dashboard/manager/SalesCollection";
+import CheckOut from "../pages/dashboard/manager/CheckOut";
+import AdminManageShop from "../pages/dashboard/admin/AdminManageShop";
+import AdminSaleSummery from "../pages/dashboard/admin/AdminSaleSummery";
+import ShopSaleSummery from "../pages/dashboard/manager/ShopSaleSummery";
+import AdminManageUser from "../pages/dashboard/admin/AdminManageUser";
+import ManageProduct from "../pages/dashboard/manager/ManageProduct";
+import PrivateRoute from "./PrivateRoute";
 
 const PageRoute = createBrowserRouter([
   {
@@ -29,6 +39,51 @@ const PageRoute = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      // manager dashboard routes //
+      {
+        path: "manage-product",
+        element: <ManageProduct />,
+      },
+      {
+        path: "sales-Collection",
+        element: <SalesCollection />,
+      },
+      {
+        path: "checkout",
+        element: <CheckOut />,
+      },
+      {
+        path: "shop-sale-summery",
+        element: <ShopSaleSummery />,
+      },
+      {
+        path: "subscription",
+        element: <SubscriptionPayment />,
+      },
+
+      // admin dashboard routes //
+      {
+        path: "manage-shop",
+        element: <AdminManageShop />,
+      },
+      {
+        path: "manage-user",
+        element: <AdminManageUser />,
+      },
+      {
+        path: "admin-sale-summery",
+        element: <AdminSaleSummery />,
+      },
+    ],
   },
 ]);
 

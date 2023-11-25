@@ -73,6 +73,7 @@ const RegisterPage = () => {
               name,
               email,
               image,
+              role: "user",
             };
             axiosPublic.post("/api/user/create", userInfo).then((res) => {
               if (res.data.insertedId) {
