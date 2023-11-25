@@ -11,10 +11,10 @@ const DashboardLayout = () => {
       <Helmet>
         <title>Dashboard - Invento Wave</title>
       </Helmet>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen relative">
         <button
           onClick={() => setToggleMenu(!toggleMenu)}
-          className="lg:hidden fixed bottom-10 right-10 btn btn-circle btn-lg"
+          className="lg:hidden fixed bottom-10 right-10 btn btn-circle btn-lg z-50"
         >
           click
         </button>
@@ -28,7 +28,7 @@ const DashboardLayout = () => {
         <div className="hidden lg:block lg:flex-[2] xl:flex-[1] bg-w">
           <DashboardNavbar />
         </div>
-        <div className="flex-1 lg:flex-[6] xl:flex-[4] bg-[#dee2e6]">
+        <div className="w-full lg:flex-[6] xl:flex-[4] bg-[#dee2e6] px-5 xl:px-10 pt-10">
           <Outlet />
         </div>
       </div>

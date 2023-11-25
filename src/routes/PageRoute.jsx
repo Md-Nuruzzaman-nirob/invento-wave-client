@@ -13,8 +13,10 @@ import AdminManageShop from "../pages/dashboard/admin/AdminManageShop";
 import AdminSaleSummery from "../pages/dashboard/admin/AdminSaleSummery";
 import ShopSaleSummery from "../pages/dashboard/manager/ShopSaleSummery";
 import AdminManageUser from "../pages/dashboard/admin/AdminManageUser";
-import ManageProduct from "../pages/dashboard/manager/ManageProduct";
 import PrivateRoute from "./PrivateRoute";
+import ManageProduct from "../pages/dashboard/manager/manageProduct/ManageProduct";
+import AddProduct from "../pages/dashboard/manager/manageProduct/AddProduct";
+import UpdateProduct from "../pages/dashboard/manager/manageProduct/UpdateProduct";
 
 const PageRoute = createBrowserRouter([
   {
@@ -68,6 +70,14 @@ const PageRoute = createBrowserRouter([
       {
         path: "subscription",
         element: <SubscriptionPayment />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "update-product/:id",
+        element: <UpdateProduct />,
       },
 
       // admin dashboard routes //

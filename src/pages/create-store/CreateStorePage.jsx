@@ -17,6 +17,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const CreateStorePage = () => {
   const [description, setDescription] = useState("");
 
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const { data, refetch } = useFetchSecure(
@@ -25,7 +26,7 @@ const CreateStorePage = () => {
   );
   refetch();
 
-  if (data?.role !== "user") {
+  if (data.role && data?.role !== "user") {
     navigate("/");
   }
 
@@ -38,13 +39,11 @@ const CreateStorePage = () => {
 
   const axiosPublic = usePublicAPI();
   const axiosSecure = useSecureAPI();
-  const { user } = useAuth();
 
   const onSubmit = async (data) => {
+    const toastId = toast.loading("Progress...");
     const shopName = data.shopName;
     const shopLocation = data.shopLocation;
-
-    const toastId = toast.loading("Progress...");
 
     const res = await axiosPublic.post(
       image_hosting_api,

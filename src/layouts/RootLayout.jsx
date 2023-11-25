@@ -3,11 +3,17 @@ import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { RotatingLines } from "react-loader-spinner";
 import useAuth from "../hooks/useAuth";
+import useFetchSecure from "../hooks/useFetchSecure";
 
 const RootLayout = () => {
-  const { loader } = useAuth();
+  const { loader, user } = useAuth();
+  const { refetch, isLoading } = useFetchSecure(
+    `api/user/${user?.email}`,
+    user?.email
+  );
+  refetch();
 
-  if (loader) {
+  if (loader || isLoading) {
     return (
       <p className="h-screen flex items-center justify-center">
         <RotatingLines

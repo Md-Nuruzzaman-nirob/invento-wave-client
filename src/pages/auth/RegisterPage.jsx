@@ -106,6 +106,12 @@ const RegisterPage = () => {
           <h2 className="text-xl md:text-2xl  text-sky-500">
             Invento <span className="text-pink-600">Wave</span>
           </h2>
+          <button
+            onClick={() => navigate("/")}
+            className="btn btn-sm rounded-md bg-sky-500 hover:bg-sky-600 border-none text-white font-medium ml-20"
+          >
+            Home
+          </button>
         </div>
 
         {/* form part */}
