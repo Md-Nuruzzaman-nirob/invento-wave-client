@@ -3,7 +3,12 @@ import useSecureAPI from "./useSecureAPI";
 
 const useFetchSecure = (url, key) => {
   const axiosSecure = useSecureAPI();
-  const { data, refetch, isLoading, isPending } = useQuery({
+  const {
+    data = [],
+    refetch,
+    isLoading,
+    isPending,
+  } = useQuery({
     queryKey: [key],
     queryFn: async () => {
       const res = await axiosSecure.get(url);

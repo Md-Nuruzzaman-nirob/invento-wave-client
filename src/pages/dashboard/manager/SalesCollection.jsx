@@ -23,6 +23,8 @@ const SalesCollection = () => {
             {productData?.length}
           </span>
         </h3>
+
+        {/* TODO : ==================== */}
         <input type="text" name="" id="" />
       </div>
       <div className="overflow-x-auto mt-10 ">
@@ -56,13 +58,18 @@ const SalesCollection = () => {
                 <td className="font-medium">{data?.discountPercent}%</td>
                 <td className="font-medium">${data?.sellingPrice}</td>
                 <td>
-                  <Link
-                    to={`/dashboard/checkout/${data._id}`}
-                    // onClick={() => handleDelete(data._id)}
-                    className="btn rounded-md "
-                  >
-                    Sold
-                  </Link>
+                  {data?.productQuantity > 0 ? (
+                    <Link
+                      to={`/dashboard/checkout/${data._id}`}
+                      className="btn rounded-md "
+                    >
+                      Sold
+                    </Link>
+                  ) : (
+                    <button disabled className="btn rounded-md">
+                      Sold Out
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

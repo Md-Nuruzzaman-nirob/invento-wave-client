@@ -34,7 +34,7 @@ const AddProduct = () => {
   const navigate = useNavigate();
 
   const { data: shopData } = useFetchSecure(
-    `api/shop/${user?.email}`,
+    `/api/shop/${user?.email}`,
     user?.email
   );
 

@@ -16,18 +16,22 @@ const CheckOut = () => {
     data: productData,
     isPending,
     isLoading,
-  } = useFetchSecure(`api/product/single/${id}`, "productsData");
+  } = useFetchSecure(`/api/product/id/${id}`, "productsData");
 
-  console.log(productData);
+  const sellPriceDiscount =
+    (productData?.sellingPrice * productData?.discountPercent) / 100;
+  const sellPrice = productData?.sellingPrice - sellPriceDiscount;
+
+  console.log(sellPriceDiscount, sellPrice);
 
   return (
     <div className="mb-10">
       <Title title={"Check Out"} />
       <div className="flex justify-center mt-10 sm:w-3/5  2xl:w-1/3 mx-auto">
         <div className="card shadow-md bg-base-100 rounded-md p-5 sm:p-10">
-          <figure className="">
+          <figure>
             <img
-              className="rounded-md"
+              className="rounded-md max-h-[300px]"
               src={productData?.productImage}
               alt="Shoes"
             />
@@ -70,9 +74,15 @@ const CheckOut = () => {
             </div>
 
             <div className="w-full">
-              <h3 className="text-center font-semibold my-5">
-                Payment Information
-              </h3>
+              <div className="text-center my-5">
+                <h3 className=" font-semibold">Payment Information</h3>
+                <h3 className="text-xs sm:text-sm lg:text-base">
+                  payable price :{" "}
+                  <span className="text-green-600 font-semibold">
+                    {Math.round(sellPrice)}
+                  </span>
+                </h3>
+              </div>
               <Elements stripe={stripePromise}>
                 <CheckoutForm
                   user={user}

@@ -3,7 +3,6 @@ import Title from "../../../../components/shared/Title";
 import { useState } from "react";
 import useSecureAPI from "../../../../hooks/useSecureAPI";
 import useFetchSecure from "../../../../hooks/useFetchSecure";
-import useAuth from "../../../../hooks/useAuth";
 import usePublicAPI from "../../../../hooks/usePublicAPI";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,13 +29,12 @@ const UpdateProduct = () => {
 
   const axiosSecure = useSecureAPI();
   const axiosPublic = usePublicAPI();
-  const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
 
   const { data: productData } = useFetchSecure(
-    `api/product/${user?.email}/${id}`,
-    `'products',${user?.email}`
+    `/api/product/id/${id}`,
+    `'product',${id}`
   );
 
   const onSubmit = async (data) => {

@@ -12,7 +12,7 @@ const ManageProduct = () => {
   const axiosSecure = useSecureAPI();
 
   const { data: productData, refetch } = useFetchSecure(
-    `api/product/${user?.email}`,
+    `/api/product/${user?.email}`,
     "productsData"
   );
 

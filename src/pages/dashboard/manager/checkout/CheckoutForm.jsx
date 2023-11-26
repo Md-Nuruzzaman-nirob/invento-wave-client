@@ -24,15 +24,19 @@ const CheckoutForm = ({ user, productData, isLoading, isPending }) => {
   const axiosSecure = useSecureAPI();
   const navigate = useNavigate();
 
+  const sellPriceDiscount =
+    (productData?.sellingPrice * productData?.discountPercent) / 100;
+  const sellPrice = productData?.sellingPrice - sellPriceDiscount;
+
   useEffect(() => {
     if (isLoading || isPending) {
       return;
     }
-    const priceData = { price: productData?.sellingPrice };
+    const priceData = { price: Math.round(sellPrice) };
     axiosSecure.post("/create-payment-intent", priceData).then((res) => {
       setClientSecret(res.data.clientSecret);
     });
-  }, [axiosSecure, isLoading, isPending, productData?.sellingPrice]);
+  }, [axiosSecure, isLoading, isPending, sellPrice]);
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -87,17 +91,8 @@ const CheckoutForm = ({ user, productData, isLoading, isPending }) => {
           transactionId: paymentIntent.id,
           soldDate: date,
           soldTime: time,
-          soldProduct: {
-            productId: productData?._id,
-            productName: productData?.productName,
-            productImage: productData?.productImage,
-            productLocation: productData?.productLocation,
-            shopEmail: productData?.shopEmail,
-            shopId: productData?.shopId,
-            shopName: productData?.shopName,
-            shopLogo: productData?.shopLogo,
-          },
-          soldPrice: productData?.sellingPrice,
+          soldProduct: { productData },
+          soldPrice: Math.round(sellPrice),
           email: user?.email,
           name: user?.displayName,
         };
@@ -146,7 +141,7 @@ const CheckoutForm = ({ user, productData, isLoading, isPending }) => {
             },
           }}
         />
-        <div className="relative mt-6">{paymentError}</div>
+        <div className="relative my-3">{paymentError}</div>
         <button
           className="mt-3 w-full btn btn-sm bg-sky-500 hover:bg-sky-600 text-white border-none"
           type="submit"
