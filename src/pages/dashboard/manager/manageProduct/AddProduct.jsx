@@ -68,7 +68,8 @@ const AddProduct = () => {
         sellingPrice: Math.round(sellingPrice),
         sellCount: 0,
         productImage: res?.data?.data?.image?.url,
-        date,
+        productCode: data?.productCode,
+        addedDate: date,
         productLocation: data.productLocation,
         description,
         shopEmail: shopData?.email,
@@ -107,8 +108,7 @@ const AddProduct = () => {
                 maxLength: 40,
               })}
               className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
-              placeholder="Enter product name
-              ..."
+              placeholder="Enter product name..."
               type="text"
             />
             {errors.productName?.type === "required" && (
@@ -135,9 +135,8 @@ const AddProduct = () => {
                 required: true,
               })}
               className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
-              placeholder="Enter product quantity
-              ..."
               type="text"
+              placeholder="Enter product quantity.."
             />
             {errors.productQuantity?.type === "required" && (
               <span className="text-red-600">
@@ -217,20 +216,34 @@ const AddProduct = () => {
             />
           </div>
         </div>
-        <div className="mt-10">
-          <label className="font-medium opacity-80 mr-5" htmlFor="textAria">
-            Product Image
-          </label>
-          <input
-            {...register("productImage", {
-              required: true,
-            })}
-            className="px-4 py-2 text-sm"
-            type="file"
-          />
+        <div className="flex flex-col sm:flex-row gap-5 mt-5">
+          <div className="flex-1 mt-10">
+            <label className="font-medium opacity-80 mr-5" htmlFor="textAria">
+              Product Image
+            </label>
+            <input
+              {...register("productImage", {
+                required: true,
+              })}
+              className="px-4 py-2 text-sm"
+              type="file"
+            />
+          </div>
+
+          <div className="flex-1">
+            <label className="font-medium opacity-80" htmlFor="">
+              Product Code
+            </label>
+            <input
+              {...register("productCode")}
+              className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
+              placeholder="Enter product code..."
+              type="text"
+            />
+          </div>
         </div>
-        {errors.productImage?.type === "required" && (
-          <span className="text-red-600">*product image is required.</span>
+        {errors.productCode?.type === "required" && (
+          <span className="text-red-600">*product code is required.</span>
         )}
         <div className="flex flex-col w-full mt-10">
           <label className="font-medium opacity-80" htmlFor="textAria">

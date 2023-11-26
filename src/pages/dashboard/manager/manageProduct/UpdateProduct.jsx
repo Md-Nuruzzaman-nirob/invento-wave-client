@@ -34,11 +34,6 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data: shopData } = useFetchSecure(
-    `api/shop/${user?.email}`,
-    `'shop',${user?.email}`
-  );
-
   const { data: productData } = useFetchSecure(
     `api/product/${user?.email}/${id}`,
     `'products',${user?.email}`
@@ -66,21 +61,21 @@ const UpdateProduct = () => {
         parseInt(data?.productionCost) + taxAmount + profitAmount;
 
       const productInfo = {
-        productName: data?.productName,
-        productQuantity: parseInt(data?.productQuantity),
-        productionCost: parseInt(data.productionCost),
-        profitMarginPercent: parseInt(data?.profitMargin),
-        discountPercent: parseInt(data?.discount) || 0,
-        sellingPrice: Math.round(sellingPrice),
-        sellCount: 0,
-        productImage: res?.data?.data?.image?.url,
-        date,
-        productLocation: data.productLocation,
-        description,
-        shopEmail: shopData?.email,
-        shopId: shopData?._id,
-        shopName: shopData?.shopName,
-        shopLogo: shopData?.shopLogo,
+        productName: data?.productName || productData?.productName,
+        productQuantity:
+          parseInt(data?.productQuantity) || productData?.productQuantity,
+        productionCost:
+          parseInt(data.productionCost) || productData?.productionCost,
+        profitMarginPercent:
+          parseInt(data?.profitMargin) || productData?.profitMarginPercent,
+        discountPercent:
+          parseInt(data?.discount) || productData?.discountPercent,
+        productImage: res?.data?.data?.image?.url || productData?.productImage,
+        productCode: data?.productCode || productData?.productCode,
+        productLocation: data.productLocation || productData?.productLocation,
+        description: description || productData?.description,
+        sellingPrice: Math.round(sellingPrice) || productData?.sellingPrice,
+        lastUpdate: date,
       };
       axiosSecure
         .patch(`/api/product/update/${id}`, productInfo)
@@ -234,18 +229,36 @@ const UpdateProduct = () => {
             )}
           </div>
         </div>
-        <div className="mt-10">
-          <label className="font-medium opacity-80 mr-5" htmlFor="textAria">
-            Product Image
-          </label>
-          <input
-            {...register("productImage", {
-              required: true,
-            })}
-            className="px-4 py-2 text-sm"
-            type="file"
-          />
+        <div className="flex flex-col sm:flex-row gap-5 mt-5">
+          <div className="flex-1 mt-10">
+            <label className="font-medium opacity-80 mr-5" htmlFor="textAria">
+              Product Image
+            </label>
+            <input
+              {...register("productImage", {
+                required: true,
+              })}
+              className="px-4 py-2 text-sm"
+              type="file"
+            />
+          </div>
+
+          <div className="flex-1">
+            <label className="font-medium opacity-80" htmlFor="">
+              Product Code
+            </label>
+            <input
+              {...register("productCode")}
+              className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
+              placeholder="Enter product code..."
+              type="text"
+              defaultValue={productData?.productCode}
+            />
+          </div>
         </div>
+        {errors.productCode?.type === "required" && (
+          <span className="text-red-600">*product code is required.</span>
+        )}
         {errors.productImage?.type === "required" && (
           <span className="text-red-600">*product image is required.</span>
         )}
@@ -269,7 +282,7 @@ const UpdateProduct = () => {
           <input
             className="btn bg-sky-500 hover:bg-sky-600 text-base text-white rounded-md border-transparent hover:border-transparent"
             type="submit"
-            value="Add Product"
+            value="Update Product"
           />
         </div>
       </form>

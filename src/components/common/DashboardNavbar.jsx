@@ -75,18 +75,6 @@ const DashboardNavbar = () => {
         Sales Collection
       </NavLink>
       <NavLink
-        to="/dashboard/checkout"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Checkout
-      </NavLink>
-      <NavLink
         to="/dashboard/shop-sale-summery"
         className={({ isActive, isPending }) =>
           isPending

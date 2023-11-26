@@ -8,7 +8,7 @@ import RegisterPage from "../pages/auth/RegisterPage";
 import DashboardLayout from "../layouts/DashboardLayout";
 import SubscriptionPayment from "../pages/dashboard/manager/SubscriptionPayment";
 import SalesCollection from "../pages/dashboard/manager/SalesCollection";
-import CheckOut from "../pages/dashboard/manager/CheckOut";
+import CheckOut from "../pages/dashboard/manager/checkout/CheckOut";
 import AdminManageShop from "../pages/dashboard/admin/AdminManageShop";
 import AdminSaleSummery from "../pages/dashboard/admin/AdminSaleSummery";
 import ShopSaleSummery from "../pages/dashboard/manager/ShopSaleSummery";
@@ -60,10 +60,6 @@ const PageRoute = createBrowserRouter([
         element: <SalesCollection />,
       },
       {
-        path: "checkout",
-        element: <CheckOut />,
-      },
-      {
         path: "shop-sale-summery",
         element: <ShopSaleSummery />,
       },
@@ -74,6 +70,10 @@ const PageRoute = createBrowserRouter([
       {
         path: "add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "checkout/:id",
+        element: <CheckOut />,
       },
       {
         path: "update-product/:id",

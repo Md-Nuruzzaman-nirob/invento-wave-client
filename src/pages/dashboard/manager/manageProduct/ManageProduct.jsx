@@ -62,43 +62,48 @@ const ManageProduct = () => {
               <th>Products Image</th>
               <th>Products Name</th>
               <th>Products Quantity</th>
+              <th>Products Code</th>
               <th>Sale Count</th>
               <th>Update Products</th>
               <th>Delete Products</th>
             </tr>
           </thead>
           <tbody>
-            {productData?.map((data, index) => (
-              <tr key={data._id} className="hover">
-                <th>{index + 1}</th>
-                <td className="flex items-center justify-center">
-                  <img
-                    className="w-32 h-32 rounded-md"
-                    src={data?.productImage}
-                    alt=""
-                  />
-                </td>
-                <td className="text-lg font-medium">{data?.productName}</td>
-                <td className="text-lg font-medium">{data?.productQuantity}</td>
-                <td className="text-lg font-medium">{data?.sellCount}</td>
-                <td>
-                  <Link
-                    to={`/dashboard/update-product/${data._id}`}
-                    className="btn rounded-md"
-                  >
-                    <PiNotePencilFill className="w-8 h-8" />
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(data._id)}
-                    className="btn rounded-md"
-                  >
-                    <AiTwotoneDelete className="w-8 h-8" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {productData.length > 0 &&
+              productData?.map((data, index) => (
+                <tr key={data._id} className="hover">
+                  <th>{index + 1}</th>
+                  <td className="flex items-center justify-center">
+                    <img
+                      className="w-32 h-32 rounded-md"
+                      src={data?.productImage}
+                      alt=""
+                    />
+                  </td>
+                  <td className="text-lg font-medium">{data?.productName}</td>
+                  <td className="text-lg font-medium">
+                    {data?.productQuantity}
+                  </td>
+                  <td className="text-lg font-medium">{data?.productCode}</td>
+                  <td className="text-lg font-medium">{data?.sellCount}</td>
+                  <td>
+                    <Link
+                      to={`/dashboard/update-product/${data._id}`}
+                      className="btn rounded-md"
+                    >
+                      <PiNotePencilFill className="w-8 h-8" />
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDelete(data._id)}
+                      className="btn rounded-md"
+                    >
+                      <AiTwotoneDelete className="w-8 h-8" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
