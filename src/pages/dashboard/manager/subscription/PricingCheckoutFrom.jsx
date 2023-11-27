@@ -1,9 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import useSecureAPI from "../../../../hooks/useSecureAPI";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useSecureAPI from "../../../../hooks/useSecureAPI";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import useAuth from "../../../../hooks/useAuth";
 
 //   date related variable
 const currentDate = new Date();
@@ -16,20 +17,21 @@ const second = currentDate.getSeconds();
 const date = { day: day, month: month, year: year };
 const time = { second: second, minute: minute, hour: hour };
 
-const CheckoutForm = ({ user, productData, sellPrice }) => {
+const PricingCheckoutFrom = ({ findData }) => {
   const [paymentError, setPaymentError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useSecureAPI();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const priceData = { price: sellPrice };
+    const priceData = { price: findData?.price };
     axiosSecure.post("/create-payment-intent", priceData).then((res) => {
       setClientSecret(res.data.clientSecret);
     });
-  }, [axiosSecure, sellPrice]);
+  }, [axiosSecure, findData?.price]);
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -80,27 +82,23 @@ const CheckoutForm = ({ user, productData, sellPrice }) => {
     } else {
       setPaymentError("");
       if (paymentIntent.status === "succeeded") {
-        const salesData = {
+        const cardData = {
           transactionId: paymentIntent.id,
           soldDate: date,
           soldTime: time,
-          soldProduct: { productData },
-          soldPrice: Math.round(sellPrice),
-          email: user?.email,
-          name: user?.displayName,
+          soldPrice: findData?.price,
+          customerEmail: user?.email,
+          customerName: user?.displayName,
+          soldCard: findData,
         };
 
-        axiosSecure.post("/api/sale/create", salesData).then((res) => {
+        axiosSecure.post("/api/payment/create", cardData).then((res) => {
           if (res.data.insertedId) {
-            const updateProductInfo = {
-              sellCount: productData.sellCount + 1,
-              productQuantity: productData.productQuantity - 1,
+            const updateShopInfo = {
+              limit: findData?.features?.limit,
             };
             axiosSecure
-              .patch(
-                `/api/product/update/checkout/${productData._id}`,
-                updateProductInfo
-              )
+              .patch(`/api/shop/update/${user?.email}`, updateShopInfo)
               .then((res) => {
                 if (res.data.modifiedCount > 0) {
                   toast.success("Payment Successful", {
@@ -147,10 +145,7 @@ const CheckoutForm = ({ user, productData, sellPrice }) => {
   );
 };
 
-CheckoutForm.propTypes = {
-  user: PropTypes.object,
-  productData: PropTypes.object,
-  sellPrice: PropTypes.number,
+PricingCheckoutFrom.propTypes = {
+  findData: PropTypes.object,
 };
-
-export default CheckoutForm;
+export default PricingCheckoutFrom;

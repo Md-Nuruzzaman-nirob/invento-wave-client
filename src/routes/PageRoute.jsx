@@ -6,7 +6,6 @@ import CreateStorePage from "../pages/create-store/CreateStorePage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import DashboardLayout from "../layouts/DashboardLayout";
-import SubscriptionPayment from "../pages/dashboard/manager/SubscriptionPayment";
 import SalesCollection from "../pages/dashboard/manager/SalesCollection";
 import CheckOut from "../pages/dashboard/manager/checkout/CheckOut";
 import AdminManageShop from "../pages/dashboard/admin/AdminManageShop";
@@ -17,6 +16,8 @@ import PrivateRoute from "./PrivateRoute";
 import ManageProduct from "../pages/dashboard/manager/manageProduct/ManageProduct";
 import AddProduct from "../pages/dashboard/manager/manageProduct/AddProduct";
 import UpdateProduct from "../pages/dashboard/manager/manageProduct/UpdateProduct";
+import SubscriptionPayment from "../pages/dashboard/manager/subscription/SubscriptionPayment";
+import PriceCheckout from "../pages/dashboard/manager/subscription/PriceCheckout";
 
 const PageRoute = createBrowserRouter([
   {
@@ -66,17 +67,23 @@ const PageRoute = createBrowserRouter([
       {
         path: "subscription",
         element: <SubscriptionPayment />,
+        loader: () => fetch("/pricing.json"),
       },
       {
-        path: "add-product",
+        path: "manage-product/add-product",
         element: <AddProduct />,
       },
       {
-        path: "checkout/:id",
+        path: "sales-Collection/checkout/:id",
         element: <CheckOut />,
       },
       {
-        path: "update-product/:id",
+        path: "subscription/checkout/:plan",
+        element: <PriceCheckout />,
+        loader: () => fetch("/pricing.json"),
+      },
+      {
+        path: "manage-product/update-product/:id",
         element: <UpdateProduct />,
       },
 

@@ -32,7 +32,7 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data: productData } = useFetchSecure(
+  const { data: productData, refetch } = useFetchSecure(
     `/api/product/id/${id}`,
     `'product',${id}`
   );
@@ -80,6 +80,7 @@ const UpdateProduct = () => {
         .then((resData) => {
           if (resData.data.modifiedCount > 0) {
             reset();
+            refetch();
             toast.success(
               "Your product has been updated successfully. 🌟 Happy selling!!!",
               { id: toastId, duration: 4000 }

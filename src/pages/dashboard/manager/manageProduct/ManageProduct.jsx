@@ -15,6 +15,11 @@ const ManageProduct = () => {
     `/api/product/${user?.email}`,
     "productsData"
   );
+  const { data: shopData } = useFetchSecure(
+    `/api/shop/${user?.email}`,
+    "shopData"
+  );
+  console.log(shopData);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -50,11 +55,33 @@ const ManageProduct = () => {
             {productData?.length}
           </span>
         </h3>
-        <Link to={"/dashboard/add-product"} className="btn">
-          Add Your Product
-        </Link>
+        <h3 className="text-lg font-medium text-black/80">
+          Product Add Limit :{" "}
+          <span
+            className={`badge badge-lg  text-white ${
+              shopData.limit > 0 ? "bg-green-600 " : "bg-red-600"
+            }`}
+          >
+            {shopData?.limit}
+          </span>
+        </h3>
+        {shopData?.limit > 0 ? (
+          <Link
+            to={"/dashboard/manage-product/add-product"}
+            className="btn bg-sky-500 hover:bg-sky-600 text-white border-none"
+          >
+            Add Your Product
+          </Link>
+        ) : (
+          <button
+            disabled={shopData?.limit}
+            className="btn bg-sky-500 hover:bg-sky-600 text-white border-none"
+          >
+            Add Your Product
+          </button>
+        )}
       </div>
-      <div className="overflow-x-auto mt-10 ">
+      <div className="overflow-x-auto mt-10 mb-20">
         <table className="table text-center">
           <thead>
             <tr>
@@ -88,7 +115,7 @@ const ManageProduct = () => {
                   <td className="text-lg font-medium">{data?.sellCount}</td>
                   <td>
                     <Link
-                      to={`/dashboard/update-product/${data._id}`}
+                      to={`/dashboard/manage-product/update-product/${data._id}`}
                       className="btn rounded-md"
                     >
                       <PiNotePencilFill className="w-8 h-8" />

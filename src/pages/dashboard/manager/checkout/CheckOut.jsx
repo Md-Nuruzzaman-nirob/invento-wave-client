@@ -16,13 +16,15 @@ const CheckOut = () => {
     data: productData,
     isPending,
     isLoading,
-  } = useFetchSecure(`/api/product/id/${id}`, "productsData");
+  } = useFetchSecure(`/api/product/id/${id}`, ["checkoutData", id]);
+
+  if ((isLoading, isPending)) {
+    return;
+  }
 
   const sellPriceDiscount =
     (productData?.sellingPrice * productData?.discountPercent) / 100;
   const sellPrice = productData?.sellingPrice - sellPriceDiscount;
-
-  console.log(sellPriceDiscount, sellPrice);
 
   return (
     <div className="mb-10">
@@ -79,7 +81,7 @@ const CheckOut = () => {
                 <h3 className="text-xs sm:text-sm lg:text-base">
                   payable price :{" "}
                   <span className="text-green-600 font-semibold">
-                    {Math.round(sellPrice)}
+                    ${Math.round(sellPrice)}
                   </span>
                 </h3>
               </div>
@@ -87,6 +89,7 @@ const CheckOut = () => {
                 <CheckoutForm
                   user={user}
                   productData={productData}
+                  sellPrice={Math.round(sellPrice)}
                   isLoading={isLoading}
                   isPending={isPending}
                 />

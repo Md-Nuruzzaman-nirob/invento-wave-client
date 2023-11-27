@@ -27,7 +27,7 @@ const SalesCollection = () => {
         {/* TODO : ==================== */}
         <input type="text" name="" id="" />
       </div>
-      <div className="overflow-x-auto mt-10 ">
+      <div className="overflow-x-auto mt-10 mb-20 ">
         <table className="table text-center">
           <thead>
             <tr>
@@ -47,7 +47,7 @@ const SalesCollection = () => {
                 <th>{index + 1}</th>
                 <td className="flex items-center justify-center">
                   <img
-                    className="w-32 h-32 rounded-md"
+                    className="w-44 h-32 rounded-md object-cover"
                     src={data?.productImage}
                     alt=""
                   />
@@ -60,7 +60,7 @@ const SalesCollection = () => {
                 <td>
                   {data?.productQuantity > 0 ? (
                     <Link
-                      to={`/dashboard/checkout/${data._id}`}
+                      to={`/dashboard/sales-Collection/checkout/${data._id}`}
                       className="btn rounded-md "
                     >
                       Sold

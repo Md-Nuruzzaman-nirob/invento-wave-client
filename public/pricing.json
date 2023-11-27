@@ -1,0 +1,39 @@
+[
+    {
+        "id": "basic",
+        "plan": "Basic Plan",
+        "price": 10,
+        "features": {
+            "limit": 200,
+            "support": "24/7",
+            "contact": "Unlimited",
+            "feature": "Access"
+        }
+    },
+    {
+        "id": "pro",
+        "plan": "Pro Plan",
+        "price": 20,
+        "features": {
+            "limit": 450,
+            "support": "24/7",
+            "contact": "Unlimited",
+            "feature": "Access",
+            "update": "Unlimited"
+        },
+        "popular": "MOST POPULAR"
+    },
+    {
+        "id": "premium",
+        "plan": "Premium Plan",
+        "price": 50,
+        "features": {
+            "limit": 1500,
+            "support": "24/7",
+            "contact": "Unlimited",
+            "feature": "Access",
+            "update": "Unlimited",
+            "ads": "No"
+        }
+    }
+]
