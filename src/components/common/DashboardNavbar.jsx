@@ -4,102 +4,97 @@ import useAuth from "../../hooks/useAuth";
 import { TiHome } from "react-icons/ti";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
+import useFetchSecure from "../../hooks/useFetchSecure";
 
 const DashboardNavbar = () => {
   const { user, logout } = useAuth();
-  const admin = false;
 
-  const userNavLink = admin ? (
-    <>
-      <NavLink
-        to="/dashboard/manage-shop"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Manage Shop
-      </NavLink>
-      <NavLink
-        to="/dashboard/manage-user"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Manage User
-      </NavLink>
-      <NavLink
-        to="/dashboard/admin-sale-summery"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Sale-Summary
-      </NavLink>
-    </>
-  ) : (
-    <>
-      <NavLink
-        to="/dashboard/manage-product"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Manage Product
-      </NavLink>
-      <NavLink
-        to="/dashboard/sales-Collection"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Sales Collection
-      </NavLink>
-      <NavLink
-        to="/dashboard/shop-sale-summery"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Sales Summary
-      </NavLink>
-      <NavLink
-        to="/dashboard/subscription"
-        className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "text-pink-600 underline underline-offset-8"
-            : "opacity-80 font-medium hover:text-pink-600"
-        }
-      >
-        Subscription & Payment
-      </NavLink>
-    </>
+  const { data, refetch } = useFetchSecure(
+    `api/user/${user?.email}`,
+    user?.email
   );
+  refetch();
+
+  const userNavLink =
+    data?.role === "admin" ? (
+      <>
+        <NavLink
+          to="/dashboard/manage-shop"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "opacity-80 font-medium hover:text-pink-600"
+          }
+        >
+          Manage Shop
+        </NavLink>
+        <NavLink
+          to="/dashboard/admin-sale-summery"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "opacity-80 font-medium hover:text-pink-600"
+          }
+        >
+          Sale-Summary
+        </NavLink>
+      </>
+    ) : (
+      <>
+        <NavLink
+          to="/dashboard/manage-product"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "opacity-80 font-medium hover:text-pink-600"
+          }
+        >
+          Manage Product
+        </NavLink>
+        <NavLink
+          to="/dashboard/sales-Collection"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "opacity-80 font-medium hover:text-pink-600"
+          }
+        >
+          Sales Collection
+        </NavLink>
+        <NavLink
+          to="/dashboard/shop-sale-summery"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "opacity-80 font-medium hover:text-pink-600"
+          }
+        >
+          Sales Summary
+        </NavLink>
+        <NavLink
+          to="/dashboard/subscription"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "text-pink-600 underline underline-offset-8"
+              : "opacity-80 font-medium hover:text-pink-600"
+          }
+        >
+          Subscription & Payment
+        </NavLink>
+      </>
+    );
 
   return (
     <div className="flex flex-col justify-between gap-10 px-10">

@@ -6,9 +6,10 @@ import toast from "react-hot-toast";
 import useSecureAPI from "../../hooks/useSecureAPI";
 import usePublicAPI from "../../hooks/usePublicAPI";
 import useAuth from "../../hooks/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchSecure from "../../hooks/useFetchSecure";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
@@ -18,17 +19,11 @@ const CreateStorePage = () => {
   const [description, setDescription] = useState("");
 
   const { user } = useAuth();
+  const axiosPublic = usePublicAPI();
+  const axiosSecure = useSecureAPI();
   const navigate = useNavigate();
 
-  const { data, refetch } = useFetchSecure(
-    `api/user/${user?.email}`,
-    user?.email
-  );
-  refetch();
-
-  if (data.role && data?.role !== "user") {
-    navigate("/");
-  }
+  const { data } = useFetchSecure(`api/user/${user?.email}`, user?.email);
 
   const {
     register,
@@ -37,8 +32,11 @@ const CreateStorePage = () => {
     formState: { errors },
   } = useForm();
 
-  const axiosPublic = usePublicAPI();
-  const axiosSecure = useSecureAPI();
+  useEffect(() => {
+    if (data.role === "Shop-Manager" || data.role === "admin") {
+      return navigate("/");
+    }
+  }, [data.role, navigate]);
 
   const onSubmit = async (data) => {
     const toastId = toast.loading("Progress...");
@@ -86,113 +84,118 @@ const CreateStorePage = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bg})`,
-        transformOrigin: "center",
-      }}
-      className="bg-cover bg-no-repeat bg-center min-h-screen"
-    >
-      <Container>
-        <Title
-          subTitle="Transform your passion into a business! Create your own shop by filling out the form below. Make it uniquely yours with a captivating name, an eye-catching logo, and an enticing description. Your shop, your rules!"
-          title="Create Your Shop"
-          className="pt-24 sm:pt-36 lg:pt-40 pb-20"
-        />
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="sm:w-3/4 sm:mx-auto pb-20 overflow-hidden"
-        >
-          <div className="flex flex-col sm:flex-row gap-5">
-            <div className="flex-1">
-              <label className="font-bold opacity-80" htmlFor="">
-                Shop Name
-              </label>
-              <input
-                {...register("shopName", {
-                  required: true,
-                  minLength: 4,
-                  maxLength: 30,
-                })}
-                className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
-                placeholder="Enter shop name..."
-                type="text"
-              />
-              {errors.shopName?.type === "required" && (
-                <span className="text-red-600">*shop name is required.</span>
-              )}
-              {errors.shopName?.type === "minLength" && (
-                <span className="text-red-600">
-                  *shop name must be at least 4 characters long.
-                </span>
-              )}
-              {errors.shopName?.type === "maxLength" && (
-                <span className="text-red-600">
-                  *name cannot exceed 30 characters.
-                </span>
-              )}
-            </div>
+    <>
+      <Helmet>
+        <title>Create Shop - Invento Wave</title>
+      </Helmet>
+      <div
+        style={{
+          backgroundImage: `url(${bg})`,
+          transformOrigin: "center",
+        }}
+        className="bg-cover bg-no-repeat bg-center min-h-screen"
+      >
+        <Container>
+          <Title
+            subTitle="Transform your passion into a business! Create your own shop by filling out the form below. Make it uniquely yours with a captivating name, an eye-catching logo, and an enticing description. Your shop, your rules!"
+            title="Create Your Shop"
+            className="pt-24 sm:pt-36 lg:pt-40 pb-20"
+          />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="sm:w-3/4 sm:mx-auto pb-20 overflow-hidden"
+          >
+            <div className="flex flex-col sm:flex-row gap-5">
+              <div className="flex-1">
+                <label className="font-bold opacity-80" htmlFor="">
+                  Shop Name
+                </label>
+                <input
+                  {...register("shopName", {
+                    required: true,
+                    minLength: 4,
+                    maxLength: 30,
+                  })}
+                  className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                  placeholder="Enter shop name..."
+                  type="text"
+                />
+                {errors.shopName?.type === "required" && (
+                  <span className="text-red-600">*shop name is required.</span>
+                )}
+                {errors.shopName?.type === "minLength" && (
+                  <span className="text-red-600">
+                    *shop name must be at least 4 characters long.
+                  </span>
+                )}
+                {errors.shopName?.type === "maxLength" && (
+                  <span className="text-red-600">
+                    *name cannot exceed 30 characters.
+                  </span>
+                )}
+              </div>
 
-            <div className="flex-1">
-              <label className="font-bold opacity-80" htmlFor="">
-                Shop Location
+              <div className="flex-1">
+                <label className="font-bold opacity-80" htmlFor="">
+                  Shop Location
+                </label>
+                <input
+                  {...register("shopLocation", {
+                    required: true,
+                  })}
+                  className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                  placeholder="Enter shop location..."
+                  type="text"
+                />
+                {errors.shopLocation?.type === "required" && (
+                  <span className="text-red-600">
+                    *shop location is required.
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="mt-10">
+              <label className="font-bold opacity-80 mr-5" htmlFor="textAria">
+                Shop Logo
               </label>
               <input
-                {...register("shopLocation", {
+                {...register("shopLogo", {
                   required: true,
                 })}
-                className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                className="px-4 py-2 font-semibold"
                 placeholder="Enter shop location..."
-                type="text"
+                type="file"
               />
-              {errors.shopLocation?.type === "required" && (
-                <span className="text-red-600">
-                  *shop location is required.
-                </span>
-              )}
             </div>
-          </div>
-          <div className="mt-10">
-            <label className="font-bold opacity-80 mr-5" htmlFor="textAria">
-              Shop Logo
-            </label>
-            <input
-              {...register("shopLogo", {
-                required: true,
-              })}
-              className="px-4 py-2 font-semibold"
-              placeholder="Enter shop location..."
-              type="file"
-            />
-          </div>
-          {errors.shopLogo?.type === "required" && (
-            <span className="text-red-600">*shop logo is required.</span>
-          )}
-          <div className="flex flex-col w-full mt-10">
-            <label className="font-bold opacity-80" htmlFor="textAria">
-              Shop Info (description)
-            </label>
-            <textarea
-              onBlur={(e) => setDescription(e.target.value)}
-              name=""
-              id="textAria"
-              cols="30"
-              rows="4"
-              className="w-full mt-2 px-3 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
-              placeholder="Enter your message..."
-              required
-            ></textarea>
-          </div>
-          <div className="text-center mt-12">
-            <input
-              className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md border-transparent hover:border-transparent"
-              type="submit"
-              value="Create Shop"
-            />
-          </div>
-        </form>
-      </Container>
-    </div>
+            {errors.shopLogo?.type === "required" && (
+              <span className="text-red-600">*shop logo is required.</span>
+            )}
+            <div className="flex flex-col w-full mt-10">
+              <label className="font-bold opacity-80" htmlFor="textAria">
+                Shop Info (description)
+              </label>
+              <textarea
+                onBlur={(e) => setDescription(e.target.value)}
+                name=""
+                id="textAria"
+                cols="30"
+                rows="4"
+                className="w-full mt-2 px-3 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                placeholder="Enter your message..."
+                required
+              ></textarea>
+            </div>
+            <div className="text-center mt-12">
+              <input
+                className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md border-transparent hover:border-transparent"
+                type="submit"
+                value="Create Shop"
+              />
+            </div>
+          </form>
+        </Container>
+      </div>
+    </>
   );
 };
 

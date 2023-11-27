@@ -11,13 +11,14 @@ import CheckOut from "../pages/dashboard/manager/checkout/CheckOut";
 import AdminManageShop from "../pages/dashboard/admin/AdminManageShop";
 import AdminSaleSummery from "../pages/dashboard/admin/AdminSaleSummery";
 import ShopSaleSummery from "../pages/dashboard/manager/ShopSaleSummery";
-import AdminManageUser from "../pages/dashboard/admin/AdminManageUser";
 import PrivateRoute from "./PrivateRoute";
 import ManageProduct from "../pages/dashboard/manager/manageProduct/ManageProduct";
 import AddProduct from "../pages/dashboard/manager/manageProduct/AddProduct";
 import UpdateProduct from "../pages/dashboard/manager/manageProduct/UpdateProduct";
 import SubscriptionPayment from "../pages/dashboard/manager/subscription/SubscriptionPayment";
 import PriceCheckout from "../pages/dashboard/manager/subscription/PriceCheckout";
+import AdminRoute from "./AdminRoute";
+import UnauthorizedErrorPage from "../pages/error/UnauthorizedErrorPage";
 
 const PageRoute = createBrowserRouter([
   {
@@ -28,10 +29,15 @@ const PageRoute = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        loader: () => fetch("/pricing.json"),
       },
       {
         path: "create-store",
-        element: <CreateStorePage />,
+        element: (
+          <PrivateRoute>
+            <CreateStorePage />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -90,17 +96,26 @@ const PageRoute = createBrowserRouter([
       // admin dashboard routes //
       {
         path: "manage-shop",
-        element: <AdminManageShop />,
-      },
-      {
-        path: "manage-user",
-        element: <AdminManageUser />,
+        element: (
+          <AdminRoute>
+            <AdminManageShop />
+          </AdminRoute>
+        ),
       },
       {
         path: "admin-sale-summery",
-        element: <AdminSaleSummery />,
+        element: (
+          <AdminRoute>
+            <AdminSaleSummery />
+          </AdminRoute>
+        ),
+        loader: () => fetch("/pricing.json"),
       },
     ],
+  },
+  {
+    path: "/error/unauthorized",
+    element: <UnauthorizedErrorPage />,
   },
 ]);
 

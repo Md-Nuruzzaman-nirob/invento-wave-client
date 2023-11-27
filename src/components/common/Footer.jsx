@@ -7,13 +7,13 @@ import { FaGooglePlay } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="h-[400px] flex items-center justify-center bg-[#323a46] text-white">
+    <footer className="h-[250px] flex items-center justify-center bg-[#323a46] text-white">
       <div className="">
         {/* logo part */}
         <div className="flex items-center justify-center gap-2">
           {" "}
           <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl font-semibold text-white/90">
+          <h2 className="text-2xl font-semibold text-white/90">
             Invento <span>Wave</span>
           </h2>
         </div>

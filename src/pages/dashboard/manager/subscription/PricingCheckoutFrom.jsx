@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSecureAPI from "../../../../hooks/useSecureAPI";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAuth from "../../../../hooks/useAuth";
 
@@ -25,6 +25,7 @@ const PricingCheckoutFrom = ({ findData }) => {
   const axiosSecure = useSecureAPI();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const priceData = { price: findData?.price };
@@ -105,7 +106,11 @@ const PricingCheckoutFrom = ({ findData }) => {
                     id: toastId,
                     duration: 4000,
                   });
-                  navigate("/dashboard/sales-Collection");
+                  navigate(
+                    location?.state
+                      ? location.state
+                      : "/dashboard/sales-Collection"
+                  );
                 }
               });
           }

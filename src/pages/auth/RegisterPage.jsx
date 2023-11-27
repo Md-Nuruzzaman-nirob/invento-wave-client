@@ -5,7 +5,7 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
@@ -25,7 +25,6 @@ const RegisterPage = () => {
 
   const axiosPublic = usePublicAPI();
   const { createUser } = useAuth();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const {
@@ -78,7 +77,7 @@ const RegisterPage = () => {
             axiosPublic.post("/api/user/create", userInfo).then((res) => {
               if (res.data.insertedId) {
                 toast.success("Register Successful!!!", { id: toastId });
-                navigate(location?.state ? location.state : "/");
+                navigate("/");
               }
             });
           })

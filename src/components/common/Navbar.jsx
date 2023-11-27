@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaUser } from "react-icons/fa";
 import useFetchSecure from "../../hooks/useFetchSecure";
+import { IoMdArrowDropup } from "react-icons/io";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -12,9 +13,13 @@ const Navbar = () => {
 
   const { user, logout } = useAuth();
 
+  const handleScrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   useEffect(() => {
     const handleScrolled = () => {
-      if (window.scrollY > 150) {
+      if (window.scrollY > 50) {
         setScrolled(true);
         setToggleProfile(false);
       } else {
@@ -93,20 +98,30 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed z-50 w-full text-white ${
+      className={`fixed z-[100] w-full text-white ${
         scrolled
-          ? "bg-white py-4 transition-all duration-700 ease-in-out"
+          ? "bg-[#dee2e6] py-4 transition-all duration-700 ease-in-out"
           : "bg-transparent py-6 transition-all duration-700 ease-in-out"
       }`}
     >
+      <div className={`hidden lg:block`}>
+        <button
+          onClick={handleScrollToTop}
+          className={`btn btn-square bg-pink-600 hover:bg-pink-700 border-none text-white fixed bottom-10 right-10 ${
+            !scrolled && "hidden"
+          }`}
+        >
+          <IoMdArrowDropup className="w-10 h-10" />
+        </button>
+      </div>
       <div className="max-w-7xl mx-5 md:mx-10 xl:mx-auto flex justify-between items-center">
         {/* logo + name */}
-        <div className="flex items-center gap-3">
+        <Link to={"/"} className="flex items-center gap-3">
           <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl font-semibold text-sky-500">
+          <h2 className="text-xl md:text-xl lg:text-3xl font-semibold text-sky-500">
             Invento <span className="text-pink-600">Wave</span>
           </h2>
-        </div>
+        </Link>
 
         {/* navLink */}
         <div className="hidden lg:flex items-center gap-8 text-lg font-bold">

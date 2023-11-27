@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
@@ -9,7 +9,6 @@ const SocialLoginPage = () => {
   const { googleLogin, githubLogin } = useAuth();
   const axiosPublic = usePublicAPI();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSocialLogin = async (login, social) => {
     const toastId = toast.loading("Progress...");
@@ -27,10 +26,10 @@ const SocialLoginPage = () => {
         .then((res) => {
           if (res.data.insertedId) {
             toast.success(`${social} login Successful!!!`, { id: toastId });
-            navigate(location?.state ? location.state : "/");
+            navigate("/");
           } else if (res.data.message) {
             toast.success(`${social} login Successful!!!`, { id: toastId });
-            navigate(location?.state ? location.state : "/");
+            navigate("/");
           }
         });
     } catch (error) {
