@@ -5,7 +5,7 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CiLock } from "react-icons/ci";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
@@ -23,6 +23,7 @@ const LoginPage = () => {
   } = useForm();
   const { loginUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = async (data) => {
     const email = data.email;
@@ -32,7 +33,7 @@ const LoginPage = () => {
     loginUser(email, password)
       .then(() => {
         toast.success("Register Successful!!!", { id: toastId });
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         toast.error(error.message.slice(10), { id: toastId });
@@ -50,14 +51,18 @@ const LoginPage = () => {
         }}
         className="bg-cover bg-no-repeat bg-center min-h-screen px-5"
       >
-        <div className="flex items-center justify-center gap-3 pt-10 mb-8">
-          <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl  text-sky-500">
-            Invento <span className="text-pink-600">Wave</span>
-          </h2>
+        <div className="max-w-md mx-auto flex items-center justify-between pt-16 mb-20">
+          <div className="flex items-center gap-3">
+            <img className="w-8 h-8" src={logo} alt="" />
+            <h2 className="text-xl md:text-2xl  text-sky-500">
+              Invento <span className="text-pink-600">Wave</span>
+            </h2>
+          </div>
           <button
             onClick={() => navigate("/")}
-            className="btn btn-sm rounded-md bg-sky-500 hover:bg-sky-600 border-none text-white font-medium ml-20"
+            className="btn btn-sm rounded-md bg-pink-600 hover:bg-pink-700 border-none text-white font-medium ml-20 px-10"
+            data-aos="flip-up"
+            data-aos-duration="500"
           >
             Home
           </button>
@@ -85,7 +90,6 @@ const LoginPage = () => {
                   type="email"
                   placeholder="Enter your email..."
                   className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
-                  required
                 />
                 {errors.email?.type === "required" && (
                   <span className="text-red-600">*email is required.</span>
@@ -109,7 +113,6 @@ const LoginPage = () => {
                   type="password"
                   placeholder="Enter your password..."
                   className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
-                  required
                 />
                 {errors.password?.type === "required" && (
                   <span className="text-red-600">*password is required.</span>
@@ -131,23 +134,27 @@ const LoginPage = () => {
                   Remember Me
                 </p>
               </div>
-              <div className="form-control">
+              <div
+                className="form-control"
+                data-aos="flip-up"
+                data-aos-duration="500"
+              >
                 <button className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md">
                   Login
                 </button>
               </div>
             </form>
           </div>
-          <div className="w-full max-w-md mx-auto text-center mt-5 sm:mt-8">
+          <div className="w-full max-w-md mx-auto text-center mt-10">
             <p className="flex items-center gap-2 justify-center opacity-70 font-semibold hover:underline underline-offset-4 text-pink-600">
               <CiLock className="w-5 h-5" />
               Forget Password?
             </p>
-            <h3 className="mt-5 font-semibold text-gray-600">
+            <h3 className="mt-3 text-black/70">
               Don&apos;t have an account?{" "}
               <Link
                 to={"/register"}
-                className="ml-1 hover:underline underline-offset-4 text-black/80"
+                className="ml-1 hover:underline font-semibold underline-offset-4 text-black/80"
               >
                 Register
               </Link>

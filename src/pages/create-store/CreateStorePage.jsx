@@ -33,7 +33,7 @@ const CreateStorePage = () => {
   } = useForm();
 
   useEffect(() => {
-    if (data.role === "Shop-Manager" || data.role === "admin") {
+    if (data.role === "Shop-Manager" || data.role === "System-Admin") {
       return navigate("/");
     }
   }, [data.role, navigate]);
@@ -185,7 +185,11 @@ const CreateStorePage = () => {
                 required
               ></textarea>
             </div>
-            <div className="text-center mt-12">
+            <div
+              className="text-center mt-12"
+              data-aos="flip-up"
+              data-aos-duration="1000"
+            >
               <input
                 className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md border-transparent hover:border-transparent"
                 type="submit"

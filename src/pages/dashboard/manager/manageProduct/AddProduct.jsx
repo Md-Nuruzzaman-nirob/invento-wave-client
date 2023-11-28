@@ -80,12 +80,21 @@ const AddProduct = () => {
       };
       axiosSecure.post("/api/product/create", productInfo).then((resData) => {
         if (resData.data.insertedId) {
-          reset();
-          toast.success(
-            "Your product has been added successfully. 🌟 Happy selling!!!",
-            { id: toastId, duration: 4000 }
-          );
-          navigate("/dashboard/manage-product");
+          const updateShopInfo = {
+            limit: 1,
+          };
+          axiosSecure
+            .patch(`/api/shop/update/limit/${user?.email}`, updateShopInfo)
+            .then((res) => {
+              if (res.data.modifiedCount > 0) {
+                reset();
+                toast.success(
+                  "Your product has been added successfully. 🌟 Happy selling!!!",
+                  { id: toastId, duration: 4000 }
+                );
+                navigate("/dashboard/manage-product");
+              }
+            });
         }
       });
     }
@@ -225,7 +234,7 @@ const AddProduct = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-5 mt-5">
             <div className="flex-1 mt-10">
-              <label className="font-medium opacity-80 mr-5" htmlFor="textAria">
+              <label className="font-medium opacity-80 mr-5" htmlFor="">
                 Product Image
               </label>
               <input

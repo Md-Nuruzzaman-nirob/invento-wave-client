@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import Title from "../../../components/shared/Title";
-import useFetchSecure from "../../../hooks/useFetchSecure";
+import useFetchSecure from "../../../../hooks/useFetchSecure";
+import Title from "../../../../components/shared/Title";
+import ManageShopFrom from "./ManageShopFrom";
 
 const AdminManageShop = () => {
   const { data: shopData } = useFetchSecure(`/api/shop`, "allShopData");
@@ -35,27 +36,7 @@ const AdminManageShop = () => {
             <tbody>
               {shopData.length > 0 &&
                 shopData?.map((data, index) => (
-                  <tr key={data._id} className="hover">
-                    <th>{index + 1}</th>
-                    <td className="flex items-center justify-center">
-                      <img
-                        className="w-32 h-32 rounded-md"
-                        src={data?.shopLogo}
-                        alt=""
-                      />
-                    </td>
-                    <td>{data?.shopName}</td>
-                    <td>{data?.shopLocation}</td>
-                    <td>{data?.limit}</td>
-                    <td>
-                      <button
-                        // onClick={() => handleDelete(data._id)}
-                        className="btn font-medium rounded-md"
-                      >
-                        Send Notice
-                      </button>
-                    </td>
-                  </tr>
+                  <ManageShopFrom key={index} index={index} data={data} />
                 ))}
             </tbody>
           </table>

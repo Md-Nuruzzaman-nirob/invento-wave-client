@@ -28,7 +28,7 @@ const RootLayout = () => {
     );
   }
   return (
-    <div className="font-Karla">
+    <div className="font-Karla overflow-hidden">
       <Navbar />
       <Outlet />
       <Footer />

@@ -8,7 +8,6 @@ import RegisterPage from "../pages/auth/RegisterPage";
 import DashboardLayout from "../layouts/DashboardLayout";
 import SalesCollection from "../pages/dashboard/manager/SalesCollection";
 import CheckOut from "../pages/dashboard/manager/checkout/CheckOut";
-import AdminManageShop from "../pages/dashboard/admin/AdminManageShop";
 import AdminSaleSummery from "../pages/dashboard/admin/AdminSaleSummery";
 import ShopSaleSummery from "../pages/dashboard/manager/ShopSaleSummery";
 import PrivateRoute from "./PrivateRoute";
@@ -19,6 +18,7 @@ import SubscriptionPayment from "../pages/dashboard/manager/subscription/Subscri
 import PriceCheckout from "../pages/dashboard/manager/subscription/PriceCheckout";
 import AdminRoute from "./AdminRoute";
 import UnauthorizedErrorPage from "../pages/error/UnauthorizedErrorPage";
+import AdminManageShop from "../pages/dashboard/admin/manageShop/AdminManageShop";
 
 const PageRoute = createBrowserRouter([
   {

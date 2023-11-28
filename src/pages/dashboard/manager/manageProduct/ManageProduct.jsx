@@ -14,7 +14,7 @@ const ManageProduct = () => {
 
   const { data: productData, refetch } = useFetchSecure(
     `/api/product/${user?.email}`,
-    "productsData"
+    "allProductData"
   );
   const { data: shopData } = useFetchSecure(
     `/api/shop/${user?.email}`,
@@ -31,19 +31,21 @@ const ManageProduct = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/api/product/update/${id}`).then((resData) => {
+        axiosSecure.delete(`/api/delete/update/${id}`).then((resData) => {
           if (resData.data.deletedCount > 0) {
-            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your product has been deleted.",
               icon: "success",
             });
+            refetch();
           }
         });
       }
     });
   };
+
+  console.log(shopData);
 
   return (
     <>
@@ -69,7 +71,7 @@ const ManageProduct = () => {
               {shopData?.limit || 0}
             </span>
           </h3>
-          {shopData?.limit > 0 ? (
+          {shopData?.limit > 0 && shopData?.limit !== null ? (
             <Link
               to={"/dashboard/manage-product/add-product"}
               className="btn btn-sm bg-sky-500 hover:bg-sky-600 text-white border-none font-medium"
@@ -78,7 +80,7 @@ const ManageProduct = () => {
             </Link>
           ) : (
             <button
-              disabled={shopData?.limit}
+              disabled={shopData?.limit === null || shopData?.limit <= 0}
               className="btn bg-sky-500 hover:bg-sky-600 text-white border-none"
             >
               Add Your Product
@@ -113,12 +115,16 @@ const ManageProduct = () => {
                     </td>
                     <td>{data?.productName}</td>
                     <td
-                      className={data.productQuantity === 0 && "text-red-600"}
+                      className={
+                        data.productQuantity === 0 ? "text-red-600" : ""
+                      }
                     >
                       {data?.productQuantity}
                     </td>
                     <td>{data?.productCode}</td>
-                    <td className={data.sellCount === 0 && "text-yellow-500"}>
+                    <td
+                      className={data.sellCount === 0 ? "text-yellow-500" : ""}
+                    >
                       {data?.sellCount}
                     </td>
                     <td>

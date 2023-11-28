@@ -16,10 +16,16 @@ const SponsorsSection = () => {
         }
       />
       <div className="flex justify-evenly lg:justify-between flex-wrap  gap-5 my-20">
-        <img className="" src={logo} alt="" />
-        <img src={logo2} alt="" />
-        <img src={logo3} alt="" />
-        <img src={logo4} alt="" />
+        <img
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          className=""
+          src={logo}
+          alt=""
+        />
+        <img data-aos="zoom-in" data-aos-duration="1000" src={logo2} alt="" />
+        <img data-aos="zoom-in" data-aos-duration="1000" src={logo3} alt="" />
+        <img data-aos="fade-left" data-aos-duration="1000" src={logo4} alt="" />
       </div>
     </Container>
   );

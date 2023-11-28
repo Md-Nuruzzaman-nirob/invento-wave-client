@@ -27,7 +27,7 @@ const AdminRoute = ({ children }) => {
     );
   }
 
-  if (data.role !== "admin") {
+  if (data.role !== "System-Admin") {
     return <Navigate to={"/error/unauthorized"} />;
   }
   if (!user?.email) {

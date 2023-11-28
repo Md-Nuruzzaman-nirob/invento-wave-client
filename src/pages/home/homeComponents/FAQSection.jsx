@@ -12,8 +12,17 @@ const FAQSection = () => {
           subTitle="Quick answers to your common queries. Browse through our FAQ for helpful information. Need more assistance? Contact us anytime."
         />
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 sm:gap-20 mt-10 sm:mt-20">
-          <img src={image} alt="" />
-          <div className="space-y-5">
+          <img
+            data-aos="fade-right"
+            data-aos-duration="500"
+            src={image}
+            alt=""
+          />
+          <div
+            className="space-y-5"
+            data-aos="fade-left"
+            data-aos-duration="500"
+          >
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-1" />
               <div className="collapse-title text-xl font-medium">

@@ -9,16 +9,22 @@ const Banner = () => {
       style={{
         backgroundImage: `url(${banner})`,
       }}
-      className="h-screen"
+      className="min-h-screen"
     >
-      <Container className={"h-full"}>
-        <div className="h-full flex flex-col lg:flex-row items-center gap-10 text-white">
-          <div className="flex-1">
-            <p className="opacity-70">Welcome to Invento Wave</p>
-            <h3 className="text-4xl font-bold my-6">
+      <Container>
+        <div className="min-h-screen flex flex-col-reverse lg:flex-row items-center justify-center gap-5 lg:gap-10 text-white py-28">
+          <div
+            className="flex-1"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <p className="text-sm sm:text-base opacity-70">
+              Welcome to Invento Wave
+            </p>
+            <h3 className="text-2xl sm:text-3xl xl:text-4xl font-bold my-5 xl:my-6">
               Your Partner in Streamlined Inventory Management
             </h3>
-            <p className="mb-8 opacity-70">
+            <p className="text-sm sm:text-base mb-8 opacity-70">
               Experience seamless inventory management tailored to your business
               needs. Elevate productivity, optimize resources, and embrace a new
               era of efficiency. Join us on the journey to streamlined
@@ -43,7 +49,7 @@ const Banner = () => {
               <p className="text-sm">Watch The Video</p>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1" data-aos="fade-left" data-aos-duration="1000">
             <img className="" src={image} alt="" />
           </div>
         </div>

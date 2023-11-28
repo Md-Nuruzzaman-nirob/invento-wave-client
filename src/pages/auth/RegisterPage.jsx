@@ -5,7 +5,7 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
@@ -15,9 +15,9 @@ import usePublicAPI from "../../hooks/usePublicAPI";
 import toast from "react-hot-toast";
 import SocialLoginPage from "./SocialLoginPage";
 
-// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
-// const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const RegisterPage = () => {
   const [checked, setChecked] = useState(false);
@@ -26,6 +26,7 @@ const RegisterPage = () => {
   const axiosPublic = usePublicAPI();
   const { createUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -34,21 +35,18 @@ const RegisterPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // const imageFile = { image: data.image[0] };
-
-    // try {
-    //   const res = await axiosPublic.post(image_hosting_api, imageFile, {
-    //     headers: {
-    //       "content-type": "multipart/form-data",
-    //     },
-    //   });
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.error("Error uploading image:", error.response);
-    // }
+    const res = await axiosPublic.post(
+      image_hosting_api,
+      { image: data.profileImage[0] },
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }
+    );
 
     const name = data.name;
-    const image = data.url;
+    const image = res?.data?.data?.image?.url;
     const email = data.email;
     const password = data.password;
 
@@ -72,12 +70,12 @@ const RegisterPage = () => {
               name,
               email,
               image,
-              role: "user",
+              role: "Logged-User",
             };
             axiosPublic.post("/api/user/create", userInfo).then((res) => {
               if (res.data.insertedId) {
                 toast.success("Register Successful!!!", { id: toastId });
-                navigate("/");
+                navigate(location?.state ? location.state : "/");
               }
             });
           })
@@ -100,14 +98,18 @@ const RegisterPage = () => {
         }}
         className="bg-cover bg-no-repeat bg-center min-h-screen px-5"
       >
-        <div className="flex items-center justify-center gap-3 pt-5 lg:pt-10 mb-5 lg:mb-8">
-          <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-2xl  text-sky-500">
-            Invento <span className="text-pink-600">Wave</span>
-          </h2>
+        <div className="max-w-md mx-auto flex items-center justify-between pt-16 mb-10">
+          <div className="flex items-center gap-3">
+            <img className="w-8 h-8" src={logo} alt="" />
+            <h2 className="text-xl md:text-2xl  text-sky-500">
+              Invento <span className="text-pink-600">Wave</span>
+            </h2>
+          </div>
           <button
             onClick={() => navigate("/")}
-            className="btn btn-sm rounded-md bg-sky-500 hover:bg-sky-600 border-none text-white font-medium ml-20"
+            className="btn btn-sm rounded-md bg-pink-600 hover:bg-pink-700 border-none text-white font-medium ml-20 px-10"
+            data-aos="flip-up"
+            data-aos-duration="500"
           >
             Home
           </button>
@@ -125,8 +127,8 @@ const RegisterPage = () => {
               className="px-5 sm:px-8 pb-5 sm:pb-8 pt-2"
             >
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-Karla font-semibold text-base opacity-60">
+                <label>
+                  <span className="font-Karla font-semibold text-base opacity-60">
                     Name
                   </span>
                 </label>
@@ -154,25 +156,9 @@ const RegisterPage = () => {
                   </span>
                 )}
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-Karla font-semibold text-base opacity-60">
-                    Image
-                  </span>
-                </label>
-                <input
-                  {...register("url")}
-                  type="url"
-                  placeholder="Enter your image..."
-                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
-                />
-                {errors.name?.type === "required" && (
-                  <span className="text-red-600">*name is required.</span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-Karla font-semibold text-base opacity-60">
+              <div className="form-control mt-3">
+                <label>
+                  <span className="font-Karla font-semibold text-base opacity-60">
                     Email
                   </span>
                 </label>
@@ -194,9 +180,9 @@ const RegisterPage = () => {
                   </span>
                 )}
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-Karla font-semibold text-base opacity-60">
+              <div className="form-control mt-3">
+                <label>
+                  <span className="font-Karla font-semibold text-base opacity-60">
                     Password
                   </span>
                 </label>
@@ -232,23 +218,22 @@ const RegisterPage = () => {
                   </span>
                 )}
               </div>
-              {/* <div className="mt-2">
-                <label className="label">
-                  <span className="label-text font-Karla font-semibold text-base opacity-60">
+              <div className="mt-3">
+                <label>
+                  <span className="font-Karla font-semibold text-base opacity-60">
                     Profile image
                   </span>
                 </label>
                 <input
-                  {...register("image", { required: true })}
+                  {...register("profileImage", { required: true })}
                   type="file"
-                  name=""
-                  id=""
+                  className="mt-2"
                 />
-              </div> */}
+              </div>
               {errors.image?.type === "required" && (
                 <span className="text-red-600">*image file is required.</span>
               )}
-              <div className="mt-4 sm:mt-6 flex items-center gap-2">
+              <div className="mt-2 sm:mt-5 flex items-center gap-2">
                 <p onClick={() => setChecked(!checked)}>
                   {checked ? (
                     <RiCheckboxCircleFill className="w-6 h-6 text-sky-500" />
@@ -267,19 +252,23 @@ const RegisterPage = () => {
               {checkedError && (
                 <span className="text-red-600">{checkedError}</span>
               )}
-              <div className="form-control mt-4 sm:mt-6">
+              <div
+                className="form-control mt-4 sm:mt-5"
+                data-aos="flip-up"
+                data-aos-duration="500"
+              >
                 <button className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md">
-                  Login
+                  Register
                 </button>
               </div>
             </form>
           </div>
-          <div className="w-full max-w-md mx-auto text-center mt-5 sm:mt-8">
-            <h3 className="font-semibold text-gray-300">
+          <div className="w-full max-w-md mx-auto text-center mt-5">
+            <h3 className=" text-white/80">
               Already have account?
               <Link
                 to={"/login"}
-                className="ml-1 hover:underline underline-offset-4 text-white"
+                className="ml-2 hover:underline underline-offset-4 text-white font-semibold"
               >
                 Login
               </Link>

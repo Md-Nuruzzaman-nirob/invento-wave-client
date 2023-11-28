@@ -6,6 +6,7 @@ import Container from "../../../components/shared/Container";
 const PricingSection = () => {
   const pricing = useLoaderData();
   const location = useLocation();
+
   return (
     <div id="pricing">
       <Container className={"py-20"}>
@@ -23,6 +24,8 @@ const PricingSection = () => {
             <div
               key={data.id}
               className="w-[300px] sm:w-[500px] lg:w-[300px] xl:w-[400px] bg-base-100 shadow-xl p-5 sm:p-7 rounded-md relative overflow-hidden mx-auto lg:mx-0"
+              data-aos="zoom-in"
+              data-aos-duration="500"
             >
               {data.popular && (
                 <p className="w-2/3 absolute top-9 -right-12 sm:-right-28 lg:-right-12 xl:-right-20 rotate-45 bg-red-600 text-white py-1 px-3 rounded-md text-center shadow-lg shadow-black/40 font-medium">
@@ -86,6 +89,8 @@ const PricingSection = () => {
                 to={`/dashboard/subscription/checkout/${data.id}`}
                 state={location.pathname}
                 className=" btn w-full bg-sky-500 hover:bg-sky-600 text-white border-none text-lg font-medium"
+                data-aos="flip-up"
+                data-aos-duration="500"
               >
                 Choose Plan
               </Link>

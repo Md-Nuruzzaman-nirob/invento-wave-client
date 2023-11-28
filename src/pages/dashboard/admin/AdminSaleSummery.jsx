@@ -2,13 +2,12 @@ import { FcSalesPerformance } from "react-icons/fc";
 import Title from "../../../components/shared/Title";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import useFetchSecure from "../../../hooks/useFetchSecure";
-// import useAuth from "../../../hooks/useAuth";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import SaleSummeryForm from "./SaleSummeryForm";
 
 const AdminSaleSummery = () => {
-  // const { user } = useAuth();
   const products = useLoaderData();
 
   const { data: incomeData } = useFetchSecure(
@@ -90,16 +89,7 @@ const AdminSaleSummery = () => {
               <tbody>
                 {usersData.length > 0 &&
                   usersData?.map((data, index) => (
-                    <tr key={data._id} className="hover">
-                      <th>{index + 1}</th>
-                      <td>{data?.name}</td>
-                      <td>{data?.email}</td>
-                      <td>{data?.shopName}</td>
-                      <td>{data?.role}</td>
-                      <td className="text-yellow-500">
-                        <button className="btn rounded-md">Send Email</button>
-                      </td>
-                    </tr>
+                    <SaleSummeryForm key={index} index={index} data={data} />
                   ))}
               </tbody>
             </table>

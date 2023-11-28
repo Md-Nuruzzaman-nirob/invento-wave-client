@@ -3,8 +3,39 @@ import Title from "../../../components/shared/Title";
 import { AiTwotoneMail } from "react-icons/ai";
 import { BsPhone } from "react-icons/bs";
 import { FaLocationArrow } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+import toast from "react-hot-toast";
 
 const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    const toastId = toast.loading("Progress...");
+
+    emailjs
+      .sendForm(
+        "service_v1q76ij",
+        "template_ajxhy9f",
+        form.current,
+        "FJ7RCT2to6rvsU5sS"
+      )
+      .then(
+        (result) => {
+          if (result.text === "OK") {
+            toast.success("Your message sent successfully !", {
+              id: toastId,
+            });
+            e.target.reset();
+          }
+        },
+        (error) => {
+          toast.error(error, { id: toastId });
+        }
+      );
+  };
+
   return (
     <div className="py-20 bg-[#f8f9fa]">
       <Container>
@@ -16,12 +47,16 @@ const Contact = () => {
             inventory management journey starts with a simple message or call."
         />
         <div className="flex flex-col lg:flex-row gap-10 md:gap-20 lg:gap-40 mt-10 md:mt-20">
-          <div className="space-y-10">
+          <div
+            className="flex-[3] space-y-10"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
             <div className="flex items-center gap-6">
               <AiTwotoneMail className="w-8 h-8 text-sky-500" />
               <div className="">
                 <h3 className="font-bold opacity-90">Email</h3>
-                <p className="font-semibold opacity-60">example@abc.com</p>
+                <p className="font-semibold opacity-60">nmd28573@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
@@ -32,75 +67,68 @@ const Contact = () => {
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <FaLocationArrow className="w-10 h-10 text-sky-500" />
+              <FaLocationArrow className="w-8 h-8 text-sky-500" />
               <div className="">
                 <h3 className="font-bold opacity-90">Address</h3>
-                <p className="font-semibold opacity-60">
-                  20 Rollins Road Cotesfield, NE 68829
-                </p>
+                <p className="font-semibold opacity-60">Dhaka Bangladesh</p>
               </div>
             </div>
           </div>
 
           {/* form part */}
-          <form className="w-full">
+          <form ref={form} onSubmit={sendEmail} className="flex-[5]">
             <div className="flex flex-col lg:flex-row gap-5">
               <div className="flex-1">
                 <label className="font-bold opacity-80" htmlFor="">
-                  Name
+                  Your Name
                 </label>
                 <input
                   className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
                   placeholder="Enter your name..."
                   type="text"
-                  name=""
+                  name="from_name"
                   id=""
+                  required
                 />
               </div>
 
               <div className="flex-1">
                 <label className="font-bold opacity-80" htmlFor="">
-                  Email address
+                  Your Email
                 </label>
                 <input
                   className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
                   placeholder="Enter your email..."
                   type="text"
-                  name=""
+                  name="from_email"
                   id=""
+                  required
                 />
               </div>
             </div>
-            <div className="flex flex-col my-5">
-              <label className="font-bold opacity-80" htmlFor="subject">
-                Subject
-              </label>
-              <input
-                type="text"
-                name=""
-                id="subject"
-                placeholder="Enter subject..."
-                className="w-full mt-2 px-3 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
-              />
-            </div>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full mt-5">
               <label className="font-bold opacity-80" htmlFor="textAria">
-                Message
+                Your Message
               </label>
               <textarea
-                name=""
+                name="message"
                 id="textAria"
                 cols="30"
-                rows="4"
+                rows="6"
                 className="w-full mt-2 px-3 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
                 placeholder="Enter your message..."
+                required
               ></textarea>
             </div>
-            <div className="text-center mt-12">
+            <div
+              className="text-center mt-8"
+              data-aos="flip-up"
+              data-aos-duration="500"
+            >
               <input
-                className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md"
+                className="btn btn-sm px-10 bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md"
                 type="submit"
-                value="Submit"
+                value="Sent"
               />
             </div>
           </form>

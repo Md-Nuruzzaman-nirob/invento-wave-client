@@ -9,7 +9,7 @@ const SalesCollection = () => {
 
   const { data: productData, refetch } = useFetchSecure(
     `api/product/${user?.email}`,
-    `"productsData",
+    `"productData",
     ${user?.email}`
   );
   refetch();
@@ -58,7 +58,9 @@ const SalesCollection = () => {
                     />
                   </td>
                   <td className="font-medium">{data?.productName}</td>
-                  <td className={data.productQuantity === 0 && "text-red-600"}>
+                  <td
+                    className={data.productQuantity === 0 ? "text-red-600" : ""}
+                  >
                     {data?.productQuantity}
                   </td>
                   <td className="font-medium">{data?.productCode}</td>
