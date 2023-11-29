@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { HashLoader } from "react-spinners";
 import Button from "../../../../components/shared/Button";
-import Title from "../../../../components/shared/Title";
 
 const ManageProduct = () => {
   const { user } = useAuth();
@@ -59,10 +58,10 @@ const ManageProduct = () => {
   return (
     <>
       <Helmet>
-        <title>Manage Products - Invento Wave</title>
+        <title>Manage Product - Invento Wave</title>
       </Helmet>
       <div className="">
-        <Title title={"Manage Products"} />
+        <h3 className="font-semibold mb-5">Dashboard/Manage Product</h3>
         <div className="hidden sm:flex justify-around items-center mt-10">
           <h3 className="text-lg font-medium text-black/80">
             Total Product :{" "}
@@ -168,17 +167,17 @@ const ManageProduct = () => {
                     <td>
                       <Link
                         to={`/dashboard/manage-product/update-product/${data._id}`}
-                        className="btn rounded-md"
                       >
-                        <PiNotePencilFill className="w-8 h-8" />
+                        <Button className={"btn-md"}>
+                          <PiNotePencilFill className="w-8 h-8" />
+                        </Button>
                       </Link>
                     </td>
                     <td>
-                      <button
-                        onClick={() => handleDelete(data._id)}
-                        className="btn rounded-md"
-                      >
-                        <AiTwotoneDelete className="w-8 h-8" />
+                      <button onClick={() => handleDelete(data._id)}>
+                        <Button className="btn-md">
+                          <AiTwotoneDelete className="w-8 h-8" />
+                        </Button>
                       </button>
                     </td>
                   </tr>

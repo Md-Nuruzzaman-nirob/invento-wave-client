@@ -9,9 +9,10 @@ const SubscriptionPayment = () => {
   return (
     <>
       <Helmet>
-        <title>Subscription & Payment - Invento Wave</title>
+        <title>Subscription - Invento Wave</title>
       </Helmet>
       <div>
+        <h3 className="font-semibold mb-5">Dashboard/Subscription</h3>
         <Title
           title={"Pricing Plane For You"}
           subTitle="At Invento Wave, we understand the diverse needs of businesses when it comes

@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import useFetchSecure from "../../../../hooks/useFetchSecure";
-import Title from "../../../../components/shared/Title";
 import ManageShopFrom from "./ManageShopFrom";
 import { HashLoader } from "react-spinners";
 
@@ -25,7 +24,7 @@ const AdminManageShop = () => {
         <title>Manage Shop - Invento Wave</title>
       </Helmet>
       <div className="z-20">
-        <Title title={"Manage Shop"} />
+        <h3 className="font-semibold mb-5">Dashboard/Manage Shop</h3>
         <div className="flex justify-around items-center mt-10">
           <h3 className="text-lg font-medium text-black/80">
             Total Shop :{" "}

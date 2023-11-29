@@ -39,7 +39,7 @@ const AdminSaleSummery = () => {
         <title>Sales Summery - Invento Wave</title>
       </Helmet>
       <div className="">
-        <h3 className="text-xl font-semibold mb-5">Sales Summery</h3>
+        <h3 className="font-semibold mb-5">Dashboard/Sales Summery</h3>
         <div className="grid grid-cols-1  lg:grid-cols-3 gap-5 xl:gap-20">
           <div className="flex items-center justify-between bg-[#8892d6] text-white rounded-md px-6 xl:px-10 py-6 xl:py-8">
             <div className="rounded-full bg-white bg-opacity-30 p-5">

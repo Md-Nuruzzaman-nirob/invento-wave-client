@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Title from "../../../components/shared/Title";
 import useAuth from "../../../hooks/useAuth";
 import useFetchSecure from "../../../hooks/useFetchSecure";
 import { Helmet } from "react-helmet-async";
 import { HashLoader } from "react-spinners";
+import Button from "../../../components/shared/Button";
 
 const SalesCollection = () => {
   const { user } = useAuth();
@@ -34,7 +34,7 @@ const SalesCollection = () => {
         <title>Sales Collection - Invento Wave</title>
       </Helmet>
       <div>
-        <Title title={"Sales Collection"} />
+        <h3 className="font-semibold mb-5">Dashboard/Sales Collection</h3>
         <div className="flex flex-col-reverse sm:flex-row justify-around items-center mt-10 gap-5">
           <h3 className="text-lg font-medium text-black/80">
             Total Product :{" "}
@@ -84,14 +84,11 @@ const SalesCollection = () => {
                     {data?.productQuantity > 0 ? (
                       <Link
                         to={`/dashboard/sales-Collection/checkout/${data._id}`}
-                        className="btn rounded-md "
                       >
-                        Sold
+                        <Button>Sold</Button>
                       </Link>
                     ) : (
-                      <button disabled className="btn rounded-md">
-                        Sold Out
-                      </button>
+                      <Button disabled={true}>Sold Out</Button>
                     )}
                   </td>
                 </tr>

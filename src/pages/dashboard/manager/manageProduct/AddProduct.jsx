@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import Title from "../../../../components/shared/Title";
 import { useState } from "react";
 import useSecureAPI from "../../../../hooks/useSecureAPI";
 import useFetchSecure from "../../../../hooks/useFetchSecure";
@@ -115,7 +114,9 @@ const AddProduct = () => {
         <title>Add Product - Invento Wave</title>
       </Helmet>
       <div>
-        <Title title={"Add Your Product"} />
+        <h3 className="font-semibold mb-5">
+          Dashboard/Manage Product/Add Your Product
+        </h3>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="sm:w-3/4 sm:mx-auto pb-20 overflow-hidden mt-10 lg:mt-20"

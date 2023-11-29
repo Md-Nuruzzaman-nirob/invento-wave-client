@@ -1,5 +1,4 @@
 import { loadStripe } from "@stripe/stripe-js";
-import Title from "../../../../components/shared/Title";
 import { Elements } from "@stripe/react-stripe-js";
 import PricingCheckoutFrom from "./PricingCheckoutFrom";
 import { useLoaderData, useParams } from "react-router-dom";
@@ -21,7 +20,7 @@ const PriceCheckout = () => {
         <title>Check Out - Invento Wave</title>
       </Helmet>
       <div className="mb-10">
-        <Title title={"Check Out"} />
+        <h3 className="font-semibold mb-5">Dashboard/Subscription/Check Out</h3>
         <div className=" w-[300px] sm:w-[450px]  2xl:w-[500px] mx-auto card shadow-md bg-base-100 rounded-md p-5 sm:p-10 relative mt-10 overflow-hidden">
           {findData.popular && (
             <p className="w-2/3 absolute top-10 -right-11 sm:top-12 sm:-right-20 2xl:-right-24  bg-red-600 text-white py-1 sm:py-2 px-3 rounded-md text-center shadow-lg shadow-black/40 font-medium rotate-45 sm:text-lg">

@@ -1,4 +1,3 @@
-import Title from "../../../../components/shared/Title";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
@@ -35,10 +34,12 @@ const CheckOut = () => {
   return (
     <>
       <Helmet>
-        <title>Check Out - Invento Wave</title>
+        <title>Check - Invento Wave</title>
       </Helmet>
       <div className="mb-10">
-        <Title title={"Check Out"} />
+        <h3 className="font-semibold mb-5">
+          Dashboard/Sales Collection/Check Out
+        </h3>
         <div className="flex justify-center mt-10 sm:w-3/5  2xl:w-1/3 mx-auto">
           <div className="card shadow-md bg-base-100 rounded-md p-5 sm:p-10">
             <figure>

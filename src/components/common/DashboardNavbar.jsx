@@ -9,7 +9,6 @@ import { BsCollectionFill } from "react-icons/bs";
 import { GiProfit } from "react-icons/gi";
 import { MdPayment } from "react-icons/md";
 import { MdManageHistory } from "react-icons/md";
-
 const DashboardNavbar = () => {
   const { user, logout } = useAuth();
 
@@ -107,7 +106,7 @@ const DashboardNavbar = () => {
     );
 
   return (
-    <div className="flex flex-col justify-between gap-10 px-5 sm:px-10">
+    <div className="px-5 sm:px-10">
       <div className="flex flex-col justify-center items-center  mt-10">
         <Link to={"/"} className="flex justify-center items-center gap-3">
           <img className="w-7 h-7" src={logo} alt="" />
@@ -129,21 +128,21 @@ const DashboardNavbar = () => {
         <h3 className="font-semibold opacity-80 mt-3 mb-1">
           {user?.displayName}
         </h3>
-        <h3 className="text-sm font-medium opacity-80 mb-2">{user?.email}</h3>
-        <div className="flex mt-3">
-          <Link to={"/"} className="btn btn-sm font-medium text-xs">
-            <TiHome className="w-4 h-4" />
-          </Link>
-          <div className="divider divider-horizontal w-[1px]"></div>
-          <button
-            onClick={() => logout()}
-            className="btn btn-sm font-medium text-xs"
-          >
-            <IoIosLogOut className="w-4 h-4" />
-          </button>
-        </div>
+        <h3 className="text-sm opacity-90 mb-2">{user?.email}</h3>
       </div>
-      <hr />
+      <div className="flex items-center mt-3">
+        <Link to={"/"} className="flex-1 w-full btn btn-sm font-medium text-xs">
+          <TiHome className="w-4 h-4" />
+        </Link>
+        <div className="divider divider-horizontal w-[1px]"></div>
+        <button
+          onClick={() => logout()}
+          className="flex-1 w-full btn btn-sm font-medium text-xs"
+        >
+          <IoIosLogOut className="w-4 h-4" />
+        </button>
+      </div>
+      <hr className="my-10" />
       <div>
         <ul className="flex flex-col gap-5">{userNavLink}</ul>
       </div>

@@ -1,7 +1,7 @@
-import { RotatingLines } from "react-loader-spinner";
 import useAuth from "../hooks/useAuth";
 import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
+import { HashLoader } from "react-spinners";
 
 const PrivateRoute = ({ children }) => {
   const { user, loader } = useAuth();
@@ -10,14 +10,7 @@ const PrivateRoute = ({ children }) => {
   if (loader) {
     return (
       <p className="h-screen flex items-center justify-center">
-        <RotatingLines
-          strokeColor="grey"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="96"
-          visible={true}
-          color="#BB8506"
-        />
+        <HashLoader color="#0ea5e9" />
       </p>
     );
   }
