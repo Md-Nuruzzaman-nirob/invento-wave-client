@@ -25,7 +25,7 @@ const FAQSection = () => {
           >
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-1" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 What is Invento Wave?
               </div>
               <div className="collapse-content">
@@ -40,7 +40,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-2" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 How can Invento Wave benefit my business?
               </div>
               <div className="collapse-content">
@@ -55,7 +55,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 Is Invento Wave suitable for small businesses?
               </div>
               <div className="collapse-content">
@@ -69,7 +69,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 How easy is it to integrate Invento Wave with my existing
                 systems?
               </div>
@@ -85,7 +85,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 Can I access Invento Wave from multiple devices?{" "}
               </div>
               <div className="collapse-content">
@@ -99,7 +99,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 What kind of support is available if I encounter issues?{" "}
               </div>
               <div className="collapse-content">
@@ -113,7 +113,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 Does Invento Wave offer a free trial?{" "}
               </div>
               <div className="collapse-content">
@@ -128,7 +128,7 @@ const FAQSection = () => {
             </div>
             <div className="collapse collapse-arrow bg-white shadow-sm rounded-md">
               <input type="checkbox" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title font-medium">
                 How secure is my data on Invento Wave?{" "}
               </div>
               <div className="collapse-content">

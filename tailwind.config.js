@@ -9,6 +9,7 @@ export default {
     extend: {
       fontFamily: {
         Karla: ['Karla', 'sans-serif'],
+        Fira: ['Fira Sans', 'sans-serif'],
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
       },

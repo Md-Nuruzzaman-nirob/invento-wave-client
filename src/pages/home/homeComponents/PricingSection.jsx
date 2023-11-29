@@ -2,10 +2,32 @@ import { TiTick } from "react-icons/ti";
 import Title from "../../../components/shared/Title";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import Container from "../../../components/shared/Container";
+import useFetchSecure from "../../../hooks/useFetchSecure";
+import useAuth from "../../../hooks/useAuth";
+import { HashLoader } from "react-spinners";
+import { MdOutlineNoEncryptionGmailerrorred } from "react-icons/md";
+import Button from "../../../components/shared/Button";
 
 const PricingSection = () => {
   const pricing = useLoaderData();
   const location = useLocation();
+  const { user } = useAuth();
+
+  const {
+    data: userData,
+    refetch,
+    isLoading,
+    isPending,
+  } = useFetchSecure(`api/user/${user?.email}`, user?.email);
+  refetch();
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
 
   return (
     <div id="pricing">
@@ -28,12 +50,12 @@ const PricingSection = () => {
               data-aos-duration="500"
             >
               {data.popular && (
-                <p className="w-2/3 absolute top-9 -right-12 sm:-right-28 lg:-right-12 xl:-right-20 rotate-45 bg-red-600 text-white py-1 px-3 rounded-md text-center shadow-lg shadow-black/40 font-medium">
+                <p className="w-2/3 absolute top-9 -right-12 sm:-right-28 lg:-right-12 xl:-right-20 rotate-45 bg-red-600 text-white py-1 px-3 rounded-md text-center shadow-lg shadow-black/40 font-semibold">
                   MOST POPULAR
                 </p>
               )}
               <div className="py-5 md:py-10 lg:py-5 xl:py-10 flex flex-col justify-center items-center space-y-3 bg-[#dee2e6] rounded-md">
-                <h3 className="text-lg">{data?.plan}</h3>
+                <h3 className="text-lg font-medium">{data?.plan}</h3>
                 <h2 className="text-4xl font-bold text-sky-500">
                   ${data.price}
                 </h2>
@@ -85,15 +107,81 @@ const PricingSection = () => {
                   </div>
                 )}
               </div>
-              <Link
-                to={`/dashboard/subscription/checkout/${data.id}`}
-                state={location.pathname}
-                className=" btn w-full bg-sky-500 hover:bg-sky-600 text-white border-none text-lg font-medium"
-                data-aos="flip-up"
-                data-aos-duration="500"
-              >
-                Choose Plan
-              </Link>
+              {userData.role === "Shop-Manager" ? (
+                <Link
+                  to={`/dashboard/subscription/checkout/${data.id}`}
+                  state={location.pathname}
+                  className=" btn w-full bg-sky-500 hover:bg-sky-600 text-white border-none text-lg font-normal"
+                  data-aos="flip-up"
+                  data-aos-duration="500"
+                >
+                  Choose Plan
+                </Link>
+              ) : userData.role === "System-Admin" ? (
+                <>
+                  <button
+                    className=" btn w-full bg-sky-500 hover:bg-sky-600 text-white border-none text-lg font-normal"
+                    data-aos="flip-up"
+                    data-aos-duration="500"
+                    onClick={() =>
+                      document.getElementById("my_modal_2").showModal()
+                    }
+                  >
+                    Choose Plan
+                  </button>
+                  <dialog id="my_modal_2" className="modal -z-1">
+                    <div className="modal-box text-center">
+                      <p className="mt-10 mb-5 flex items-center justify-center">
+                        {" "}
+                        <MdOutlineNoEncryptionGmailerrorred className="w-20 h-20" />
+                      </p>
+
+                      <h3>
+                        You are a{" "}
+                        <span className="font-medium ">System-Admin</span>
+                      </h3>
+                      <h3 className="mt-3 mb-10">
+                        You can&apos;t go this route
+                      </h3>
+                    </div>
+                    <form method="dialog" className="modal-backdrop">
+                      <button>close</button>
+                    </form>
+                  </dialog>
+                </>
+              ) : (
+                <>
+                  <button
+                    className=" btn w-full bg-sky-500 hover:bg-sky-600 text-white border-none text-lg font-normal"
+                    data-aos="flip-up"
+                    data-aos-duration="500"
+                    onClick={() =>
+                      document.getElementById("my_modal_3").showModal()
+                    }
+                  >
+                    Choose Plan
+                  </button>
+                  <dialog id="my_modal_3" className="modal -z-1">
+                    <div className="modal-box text-center">
+                      <p className="mt-10 mb-5 flex items-center justify-center">
+                        {" "}
+                        <MdOutlineNoEncryptionGmailerrorred className="w-20 h-20" />
+                      </p>
+
+                      <h3 className="font-medium">
+                        You have not any created shop
+                      </h3>
+                      <h3 className="mt-3 ">Please create a shop first</h3>
+                      <Link to={"/create-shop"} className="z-10">
+                        <Button className={"my-10"}>Create Shop Now</Button>
+                      </Link>
+                    </div>
+                    <form method="dialog" className="modal-backdrop">
+                      <button>close</button>
+                    </form>
+                  </dialog>
+                </>
+              )}
             </div>
           ))}
         </div>

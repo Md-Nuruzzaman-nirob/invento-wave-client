@@ -2,16 +2,29 @@ import { Helmet } from "react-helmet-async";
 import useFetchSecure from "../../../../hooks/useFetchSecure";
 import Title from "../../../../components/shared/Title";
 import ManageShopFrom from "./ManageShopFrom";
+import { HashLoader } from "react-spinners";
 
 const AdminManageShop = () => {
-  const { data: shopData } = useFetchSecure(`/api/shop`, "allShopData");
+  const {
+    data: shopData,
+    isLoading,
+    isPending,
+  } = useFetchSecure(`/api/shop`, "allShopData");
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
 
   return (
     <>
       <Helmet>
         <title>Manage Shop - Invento Wave</title>
       </Helmet>
-      <div className="">
+      <div className="z-20">
         <Title title={"Manage Shop"} />
         <div className="flex justify-around items-center mt-10">
           <h3 className="text-lg font-medium text-black/80">

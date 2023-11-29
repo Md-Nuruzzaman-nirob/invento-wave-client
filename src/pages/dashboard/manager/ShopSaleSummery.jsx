@@ -1,10 +1,11 @@
-import { FcSalesPerformance } from "react-icons/fc";
-import { FcMoneyTransfer } from "react-icons/fc";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { GiPayMoney } from "react-icons/gi";
 import useFetchSecure from "../../../hooks/useFetchSecure";
 import useAuth from "../../../hooks/useAuth";
 import Title from "../../../components/shared/Title";
 import { Helmet } from "react-helmet-async";
+import { HashLoader } from "react-spinners";
+import { TfiMoney } from "react-icons/tfi";
+import { BiBarChart } from "react-icons/bi";
 
 const ShopSaleSummery = () => {
   const { user } = useAuth();
@@ -14,10 +15,19 @@ const ShopSaleSummery = () => {
     "saleData"
   );
 
-  const { data: paymentData } = useFetchSecure(`/api/payment/${user?.email}`, [
-    "payment",
-    user?.email,
-  ]);
+  const {
+    data: paymentData,
+    isLoading,
+    isPending,
+  } = useFetchSecure(`/api/payment/${user?.email}`, ["payment", user?.email]);
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
   const totalSale = saleData.reduce((accumulator, currentValue) => {
     return accumulator + currentValue.soldPrice;
   }, 0);
@@ -37,44 +47,38 @@ const ShopSaleSummery = () => {
       <Helmet>
         <title>Sales Summery - Invento Wave</title>
       </Helmet>
-      <div className="">
-        <Title title={"Sales Summery"} className={"mb-5"} />
-        <div className="grid grid-cols-1  sm:grid-cols-3 gap-8 xl:gap-16 ">
-          <div className="flex items-center justify-evenly bg-white rounded-md py-5">
-            <div>
-              <FaMoneyBillTrendUp className="w-10 lg:w-12 2xl:w-16 h-10 lg:h-12 2xl:h-16" />
+      <div>
+        <h3 className="text-xl font-semibold mb-5">Sales Summery</h3>
+        <div className="grid grid-cols-1  lg:grid-cols-3 gap-5 xl:gap-20">
+          <div className="flex items-center justify-between bg-[#8892d6] text-white rounded-md px-6 xl:px-10 py-6 xl:py-8">
+            <div className="rounded-full bg-white bg-opacity-30 p-5">
+              <BiBarChart className="w-10 h-10" />
             </div>
-            <div className="lg:space-y-3">
-              <h3 className="text-xl xl:text-3xl font-bold text-sky-500">
+            <div className="space-y-3 text-right">
+              <h3 className="text-3xl font-medium text-white">
                 ${parseInt(totalSale)}
               </h3>
-              <p className="text-sm xl:text-base font-semibold">Total Sale</p>
+              <p>Total Sale</p>
             </div>
           </div>
 
-          <div className="flex items-center justify-evenly bg-white rounded-md py-5">
-            <div>
-              <FcMoneyTransfer className="w-10 lg:w-12 2xl:w-16 h-10 lg:h-12 2xl:h-16" />
+          <div className="flex items-center justify-between bg-[#45bbe0] text-white rounded-md px-6 xl:px-10 py-6 xl:py-8">
+            <div className="rounded-full bg-white bg-opacity-30 p-5">
+              <GiPayMoney className="w-10 h-10" />
             </div>
-            <div className="lg:space-y-3">
-              <h3 className="text-xl xl:text-3xl font-bold text-red-600">
-                ${totalInvest}
-              </h3>
-              <p className="text-sm xl:text-base font-semibold">
-                Total Invest + Purchase
-              </p>
+            <div className="space-y-3 text-right">
+              <h3 className="text-3xl font-medium">${totalInvest}</h3>
+              <p>Total Invest</p>
             </div>
           </div>
 
-          <div className="flex items-center justify-evenly bg-white rounded-md py-5">
-            <div>
-              <FcSalesPerformance className="w-10 lg:w-12 2xl:w-16 h-10 lg:h-12 2xl:h-16" />
+          <div className="flex items-center justify-between bg-[#f06292] text-white rounded-md px-6 xl:px-10 py-6 xl:py-8">
+            <div className="rounded-full bg-white bg-opacity-30 p-5">
+              <TfiMoney className="w-10 h-10" />
             </div>
-            <div className="lg:space-y-3">
-              <h3 className="text-xl xl:text-3xl font-bold text-green-600">
-                ${totalProfit}
-              </h3>
-              <p className="text-sm xl:text-base font-semibold">Total Profit</p>
+            <div className="space-y-3 text-right">
+              <h3 className="text-3xl font-medium">${totalProfit}</h3>
+              <p>Total Profit</p>
             </div>
           </div>
         </div>

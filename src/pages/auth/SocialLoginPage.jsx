@@ -38,13 +38,11 @@ const SocialLoginPage = () => {
   };
   return (
     <>
-      <div className="divider text-xs lg:text-sm text-gray-500">
-        Or Login With
-      </div>
-      <div className="w-full" data-aos="flip-up" data-aos-duration="500">
+      <div className="divider text-xs lg:text-sm">Or Login With</div>
+      <div className="w-full">
         <button
           onClick={() => handleSocialLogin(googleLogin, "Google")}
-          className="w-full btn btn-md border-transparent bg-white font-bold font-Montserrat rounded-md"
+          className="w-full btn btn-md border-none bg-white hover:bg-white/90 font-medium uppercase text-base text-sky-500 rounded-md"
         >
           <FcGoogle></FcGoogle> Google
         </button>

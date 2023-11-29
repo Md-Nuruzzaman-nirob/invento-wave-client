@@ -4,22 +4,20 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { FaGooglePlay } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="h-[250px] flex items-center justify-center bg-[#323a46] text-white">
+    <footer className="h-[250px] flex items-center justify-center bg-[#323a46] text-white font-Fira">
       <div className="">
         {/* logo part */}
-        <div className="flex items-center justify-center gap-2">
-          {" "}
-          <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-2xl font-semibold text-white/90">
-            Invento <span>Wave</span>
-          </h2>
-        </div>
+        <Link to={"/"} className="flex items-center justify-center gap-2">
+          <img className="w-7 h-7" src={logo} alt="" />
+          <h2 className="text-xl font-medium text-pink-600">Invento Wave</h2>
+        </Link>
 
         {/* menu part*/}
-        <div className="flex items-center justify-center gap-5 my-10">
+        <div className="flex items-center justify-center gap-5 my-5">
           <FaFacebook className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
           <FaXTwitter className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />
           <FaInstagram className="p-2 w-9 h-9 border-2 rounded-full opacity-60 hover:opacity-100 transition duration-300" />

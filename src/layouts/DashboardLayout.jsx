@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import DashboardNavbar from "../components/common/DashboardNavbar";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
+import Footer from "../components/common/Footer";
 
 const DashboardLayout = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -11,7 +12,7 @@ const DashboardLayout = () => {
       <Helmet>
         <title>Dashboard - Invento Wave</title>
       </Helmet>
-      <div className="flex min-h-screen relative">
+      <div className="flex min-h-screen relative font-Fira">
         <div className="lg:hidden z-40">
           <label className="btn btn-square swap swap-rotate rounded-md fixed bottom-10 right-10 border-none bg-pink-600 hover:bg-pink-700 text-white">
             <input onClick={() => setToggleMenu(!toggleMenu)} type="checkbox" />
@@ -50,6 +51,7 @@ const DashboardLayout = () => {
           <Outlet />
         </div>
       </div>
+      <Footer />
     </>
   );
 };

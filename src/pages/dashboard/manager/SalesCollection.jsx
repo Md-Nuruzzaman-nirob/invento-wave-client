@@ -3,16 +3,30 @@ import Title from "../../../components/shared/Title";
 import useAuth from "../../../hooks/useAuth";
 import useFetchSecure from "../../../hooks/useFetchSecure";
 import { Helmet } from "react-helmet-async";
+import { HashLoader } from "react-spinners";
 
 const SalesCollection = () => {
   const { user } = useAuth();
 
-  const { data: productData, refetch } = useFetchSecure(
+  const {
+    data: productData,
+    refetch,
+    isLoading,
+    isPending,
+  } = useFetchSecure(
     `api/product/${user?.email}`,
     `"productData",
     ${user?.email}`
   );
   refetch();
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
 
   return (
     <>
@@ -21,7 +35,7 @@ const SalesCollection = () => {
       </Helmet>
       <div>
         <Title title={"Sales Collection"} />
-        <div className="flex justify-around items-center mt-10">
+        <div className="flex flex-col-reverse sm:flex-row justify-around items-center mt-10 gap-5">
           <h3 className="text-lg font-medium text-black/80">
             Total Product :{" "}
             <span className="badge badge-lg bg-sky-500 text-white">
@@ -32,7 +46,7 @@ const SalesCollection = () => {
           {/* TODO : ==================== */}
           <input type="text" name="" id="" />
         </div>
-        <div className="overflow-x-auto mt-10 mb-20 ">
+        <div className="overflow-x-auto mt-5 sm:mt-10 mb-20 ">
           <table className="table text-center">
             <thead>
               <tr>

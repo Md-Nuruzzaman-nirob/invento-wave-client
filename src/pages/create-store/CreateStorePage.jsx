@@ -107,7 +107,7 @@ const CreateStorePage = () => {
           >
             <div className="flex flex-col sm:flex-row gap-5">
               <div className="flex-1">
-                <label className="font-bold opacity-80" htmlFor="">
+                <label className="font-medium opacity-80" htmlFor="">
                   Shop Name
                 </label>
                 <input
@@ -116,7 +116,7 @@ const CreateStorePage = () => {
                     minLength: 4,
                     maxLength: 30,
                   })}
-                  className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                  className="w-full mt-2 px-4 py-2 border  outline-none focus:border-pink-600 opacity-80 rounded-md"
                   placeholder="Enter shop name..."
                   type="text"
                 />
@@ -136,14 +136,14 @@ const CreateStorePage = () => {
               </div>
 
               <div className="flex-1">
-                <label className="font-bold opacity-80" htmlFor="">
+                <label className="font-medium opacity-80" htmlFor="">
                   Shop Location
                 </label>
                 <input
                   {...register("shopLocation", {
                     required: true,
                   })}
-                  className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                  className="w-full mt-2 px-4 py-2 border  outline-none focus:border-pink-600  opacity-80 rounded-md"
                   placeholder="Enter shop location..."
                   type="text"
                 />
@@ -155,14 +155,14 @@ const CreateStorePage = () => {
               </div>
             </div>
             <div className="mt-10">
-              <label className="font-bold opacity-80 mr-5" htmlFor="textAria">
+              <label className="font-medium opacity-80 mr-5" htmlFor="textAria">
                 Shop Logo
               </label>
               <input
                 {...register("shopLogo", {
                   required: true,
                 })}
-                className="px-4 py-2 font-semibold"
+                className="px-4 py-2"
                 placeholder="Enter shop location..."
                 type="file"
               />
@@ -171,7 +171,7 @@ const CreateStorePage = () => {
               <span className="text-red-600">*shop logo is required.</span>
             )}
             <div className="flex flex-col w-full mt-10">
-              <label className="font-bold opacity-80" htmlFor="textAria">
+              <label className="font-medium opacity-80" htmlFor="textAria">
                 Shop Info (description)
               </label>
               <textarea
@@ -180,7 +180,7 @@ const CreateStorePage = () => {
                 id="textAria"
                 cols="30"
                 rows="4"
-                className="w-full mt-2 px-3 py-2 border  outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                className="w-full mt-2 px-3 py-2 border  outline-none focus:border-pink-600 opacity-80 rounded-md"
                 placeholder="Enter your message..."
                 required
               ></textarea>
@@ -191,7 +191,7 @@ const CreateStorePage = () => {
               data-aos-duration="1000"
             >
               <input
-                className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md border-transparent hover:border-transparent"
+                className="btn bg-pink-600 hover:bg-pink-700 text-lg text-white rounded-md border-transparent font-medium hover:border-transparent"
                 type="submit"
                 value="Create Shop"
               />

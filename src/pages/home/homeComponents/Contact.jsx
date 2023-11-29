@@ -53,24 +53,24 @@ const Contact = () => {
             data-aos-duration="1000"
           >
             <div className="flex items-center gap-6">
-              <AiTwotoneMail className="w-8 h-8 text-sky-500" />
+              <AiTwotoneMail className="w-8 h-8 text-pink-600" />
               <div className="">
-                <h3 className="font-bold opacity-90">Email</h3>
-                <p className="font-semibold opacity-60">nmd28573@gmail.com</p>
+                <h3 className="font-semibold opacity-90">Email</h3>
+                <p className="text-sm opacity-60">nmd28573@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <BsPhone className="w-8 h-8 text-sky-500" />
+              <BsPhone className="w-8 h-8 text-pink-600" />
               <div className="">
-                <h3 className="font-bold opacity-90">Phone</h3>
-                <p className="font-semibold opacity-60">012-345-6789</p>
+                <h3 className="font-semibold opacity-90">Phone</h3>
+                <p className="text-sm  opacity-60">012-345-6789</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <FaLocationArrow className="w-8 h-8 text-sky-500" />
+              <FaLocationArrow className="w-8 h-8 text-pink-600" />
               <div className="">
-                <h3 className="font-bold opacity-90">Address</h3>
-                <p className="font-semibold opacity-60">Dhaka Bangladesh</p>
+                <h3 className="font-semibold opacity-90">Address</h3>
+                <p className="text-sm opacity-60">Dhaka Bangladesh</p>
               </div>
             </div>
           </div>
@@ -79,11 +79,11 @@ const Contact = () => {
           <form ref={form} onSubmit={sendEmail} className="flex-[5]">
             <div className="flex flex-col lg:flex-row gap-5">
               <div className="flex-1">
-                <label className="font-bold opacity-80" htmlFor="">
+                <label className="font-medium opacity-80" htmlFor="">
                   Your Name
                 </label>
                 <input
-                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                  className="w-full mt-2 px-4 py-2 border border-gray-800/10 outline-none focus:border-pink-600 opacity-80 rounded-md"
                   placeholder="Enter your name..."
                   type="text"
                   name="from_name"
@@ -93,11 +93,11 @@ const Contact = () => {
               </div>
 
               <div className="flex-1">
-                <label className="font-bold opacity-80" htmlFor="">
+                <label className="font-medium opacity-80" htmlFor="">
                   Your Email
                 </label>
                 <input
-                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                  className="w-full mt-2 px-4 py-2 border border-gray-800/10 outline-none focus:border-pink-600 opacity-80 rounded-md"
                   placeholder="Enter your email..."
                   type="text"
                   name="from_email"
@@ -107,7 +107,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="flex flex-col w-full mt-5">
-              <label className="font-bold opacity-80" htmlFor="textAria">
+              <label className="font-medium opacity-80" htmlFor="textAria">
                 Your Message
               </label>
               <textarea
@@ -115,7 +115,7 @@ const Contact = () => {
                 id="textAria"
                 cols="30"
                 rows="6"
-                className="w-full mt-2 px-3 py-2 border border-gray-800/30 outline-none focus:border-sky-500 font-semibold opacity-80 rounded-md"
+                className="w-full mt-2 px-3 py-2 border border-gray-800/10 outline-none focus:border-pink-600 opacity-80 rounded-md"
                 placeholder="Enter your message..."
                 required
               ></textarea>
@@ -126,7 +126,7 @@ const Contact = () => {
               data-aos-duration="500"
             >
               <input
-                className="btn btn-sm px-10 bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md"
+                className="btn btn-sm px-10 bg-pink-600 hover:bg-pink-700 text-lg text-white rounded-md font-normal"
                 type="submit"
                 value="Sent"
               />

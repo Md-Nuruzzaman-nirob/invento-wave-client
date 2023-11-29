@@ -1,4 +1,4 @@
-import bg from "../../assets/login-bg-dark.jpg";
+import bg from "../../assets/login-bg-light.png";
 import logo from "../../assets/invento-wave-logo.png";
 import {
   RiCheckboxBlankCircleLine,
@@ -14,6 +14,8 @@ import { auth } from "../../firebase/firebase.config";
 import usePublicAPI from "../../hooks/usePublicAPI";
 import toast from "react-hot-toast";
 import SocialLoginPage from "./SocialLoginPage";
+import Button from "../../components/shared/Button";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
@@ -22,6 +24,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const RegisterPage = () => {
   const [checked, setChecked] = useState(false);
   const [checkedError, setCheckedError] = useState(false);
+  const [passShow, setPassShow] = useState(false);
 
   const axiosPublic = usePublicAPI();
   const { createUser } = useAuth();
@@ -96,23 +99,18 @@ const RegisterPage = () => {
         style={{
           backgroundImage: `url(${bg})`,
         }}
-        className="bg-cover bg-no-repeat bg-center min-h-screen px-5"
+        className="bg-cover bg-no-repeat bg-center min-h-screen px-5 font-Fira pb-10"
       >
-        <div className="max-w-md mx-auto flex items-center justify-between pt-16 mb-10">
-          <div className="flex items-center gap-3">
-            <img className="w-8 h-8" src={logo} alt="" />
-            <h2 className="text-xl md:text-2xl  text-sky-500">
-              Invento <span className="text-pink-600">Wave</span>
+        <div className="max-w-md mx-auto flex items-center justify-between pt-10 mb-10">
+          <Link to={"/"} className="flex items-center gap-3">
+            <img className="w-10 h-10" src={logo} alt="" />
+            <h2 className="text-2xl font-semibold text-pink-600">
+              Invento Wave
             </h2>
-          </div>
-          <button
-            onClick={() => navigate("/")}
-            className="btn btn-sm rounded-md bg-pink-600 hover:bg-pink-700 border-none text-white font-medium ml-20 px-10"
-            data-aos="flip-up"
-            data-aos-duration="500"
-          >
+          </Link>
+          <Button onClick={() => navigate("/")} className={"px-10"}>
             Home
-          </button>
+          </Button>
         </div>
 
         {/* form part */}
@@ -124,13 +122,11 @@ const RegisterPage = () => {
             </h2>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="px-5 sm:px-8 pb-5 sm:pb-8 pt-2"
+              className="px-5 sm:px-8 pb-5 pt-2"
             >
               <div className="form-control">
                 <label>
-                  <span className="font-Karla font-semibold text-base opacity-60">
-                    Name
-                  </span>
+                  <span className="font-medium opacity-70">Name</span>
                 </label>
                 <input
                   {...register("name", {
@@ -140,7 +136,7 @@ const RegisterPage = () => {
                   })}
                   type="text"
                   placeholder="Enter your name..."
-                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
+                  className="w-full mt-2 px-4 py-2 border border-gray-800/10 outline-none focus:border-pink-600 rounded-md text-sm"
                 />
                 {errors.name?.type === "required" && (
                   <span className="text-red-600">*name is required.</span>
@@ -156,11 +152,9 @@ const RegisterPage = () => {
                   </span>
                 )}
               </div>
-              <div className="form-control mt-3">
+              <div className="form-control mt-2">
                 <label>
-                  <span className="font-Karla font-semibold text-base opacity-60">
-                    Email
-                  </span>
+                  <span className="font-medium opacity-70">Email</span>
                 </label>
                 <input
                   {...register("email", {
@@ -169,7 +163,7 @@ const RegisterPage = () => {
                   })}
                   type="email"
                   placeholder="Enter your email..."
-                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
+                  className="w-full mt-2 px-4 py-2 border border-gray-800/10 outline-none focus:border-pink-600 rounded-md text-sm"
                 />
                 {errors.email?.type === "required" && (
                   <span className="text-red-600">*email is required.</span>
@@ -180,49 +174,57 @@ const RegisterPage = () => {
                   </span>
                 )}
               </div>
-              <div className="form-control mt-3">
-                <label>
-                  <span className="font-Karla font-semibold text-base opacity-60">
-                    Password
-                  </span>
-                </label>
-                <input
-                  {...register("password", {
-                    required: true,
-                    minLength: 6,
-                    maxLength: 36,
-                    pattern:
-                      /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,20}$/,
-                  })}
-                  type="password"
-                  placeholder="Enter your password..."
-                  className="w-full mt-2 px-4 py-2 border border-gray-800/30 outline-none focus:border-sky-500   font-Karla opacity-80 rounded-md"
-                />
-                {errors.password?.type === "required" && (
-                  <span className="text-red-600">*password is required.</span>
-                )}
-                {errors.password?.type === "minLength" && (
-                  <span className="text-red-600">
-                    *password must be at least 6 characters long.
-                  </span>
-                )}
-                {errors.password?.type === "maxLength" && (
-                  <span className="text-red-600">
-                    *password cannot exceed 36 characters.
-                  </span>
-                )}
-                {errors.password?.type === "pattern" && (
-                  <span className="text-red-600">
-                    *password must include at least one uppercase letter, one
-                    lowercase letter, and one special character.
-                  </span>
-                )}
+              <div className="relative">
+                <div className="form-control mt-2">
+                  <label>
+                    <span className="font-medium opacity-70">Password</span>
+                  </label>
+                  <input
+                    {...register("password", {
+                      required: true,
+                      minLength: 6,
+                      maxLength: 36,
+                      pattern:
+                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,20}$/,
+                    })}
+                    type={passShow ? "text" : "password"}
+                    placeholder="Enter your password..."
+                    className="w-full mt-2 px-4 py-2 border border-gray-800/10 outline-none focus:border-pink-600 rounded-md text-sm"
+                  />
+                  {errors.password?.type === "required" && (
+                    <span className="text-red-600">*password is required.</span>
+                  )}
+                  {errors.password?.type === "minLength" && (
+                    <span className="text-red-600">
+                      *password must be at least 6 characters long.
+                    </span>
+                  )}
+                  {errors.password?.type === "maxLength" && (
+                    <span className="text-red-600">
+                      *password cannot exceed 36 characters.
+                    </span>
+                  )}
+                  {errors.password?.type === "pattern" && (
+                    <span className="text-red-600">
+                      *password must have one uppercase, one lowercase, and one
+                      special character.
+                    </span>
+                  )}
+                </div>
+                <p
+                  onClick={() => setPassShow(!passShow)}
+                  className="absolute right-3 top-[41px]"
+                >
+                  {passShow ? (
+                    <FaEye className="w-5 h-5" />
+                  ) : (
+                    <FaEyeSlash className="w-5 h-5" />
+                  )}
+                </p>
               </div>
-              <div className="mt-3">
+              <div className="mt-2">
                 <label>
-                  <span className="font-Karla font-semibold text-base opacity-60">
-                    Profile image
-                  </span>
+                  <span className="font-medium opacity-70">Profile image</span>
                 </label>
                 <input
                   {...register("profileImage", { required: true })}
@@ -230,20 +232,25 @@ const RegisterPage = () => {
                   className="mt-2"
                 />
               </div>
+              {errors.profileImage?.type === "required" && (
+                <span className="text-red-600">
+                  *profile image is required.
+                </span>
+              )}
               {errors.image?.type === "required" && (
                 <span className="text-red-600">*image file is required.</span>
               )}
-              <div className="mt-2 sm:mt-5 flex items-center gap-2">
+              <div className="mt-2 sm:mt-3 flex items-center gap-2">
                 <p onClick={() => setChecked(!checked)}>
                   {checked ? (
-                    <RiCheckboxCircleFill className="w-6 h-6 text-sky-500" />
+                    <RiCheckboxCircleFill className="w-6 h-6 text-pink-600" />
                   ) : (
-                    <RiCheckboxBlankCircleLine className="w-6 h-6 text-sky-500" />
+                    <RiCheckboxBlankCircleLine className="w-6 h-6 text-pink-600" />
                   )}
                 </p>
                 <p
-                  className={`text-sm opacity-60 font-semibold ${
-                    checked ? " opacity-80" : ""
+                  className={`text-sm opacity-60 font-medium ${
+                    checked ? " opacity-100" : ""
                   }`}
                 >
                   I accept Terms and Conditions
@@ -253,22 +260,22 @@ const RegisterPage = () => {
                 <span className="text-red-600">{checkedError}</span>
               )}
               <div
-                className="form-control mt-4 sm:mt-5"
+                className="form-control mt-4"
                 data-aos="flip-up"
                 data-aos-duration="500"
               >
-                <button className="btn bg-sky-500 hover:bg-sky-600 text-lg text-white rounded-md">
+                <button className="btn bg-pink-600 hover:bg-pink-700 text-lg text-white rounded-md font-normal">
                   Register
                 </button>
               </div>
             </form>
           </div>
-          <div className="w-full max-w-md mx-auto text-center mt-5">
-            <h3 className=" text-white/80">
+          <div className="w-full max-w-md mx-auto text-center mt-6 text-black text-sm">
+            <h3>
               Already have account?
               <Link
                 to={"/login"}
-                className="ml-2 hover:underline underline-offset-4 text-white font-semibold"
+                className="ml-2 text-black hover:underline font-medium underline-offset-4"
               >
                 Login
               </Link>

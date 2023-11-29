@@ -8,6 +8,7 @@ import usePublicAPI from "../../../../hooks/usePublicAPI";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { HashLoader } from "react-spinners";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
@@ -34,10 +35,19 @@ const AddProduct = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const { data: shopData } = useFetchSecure(
-    `/api/shop/${user?.email}`,
-    user?.email
-  );
+  const {
+    data: shopData,
+    isLoading,
+    isPending,
+  } = useFetchSecure(`/api/shop/${user?.email}`, user?.email);
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
 
   const onSubmit = async (data) => {
     const toastId = toast.loading("Progress...");

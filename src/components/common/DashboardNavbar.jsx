@@ -13,11 +13,15 @@ import { MdManageHistory } from "react-icons/md";
 const DashboardNavbar = () => {
   const { user, logout } = useAuth();
 
-  const { data, refetch } = useFetchSecure(
+  const { data, refetch, isLoading, isPending } = useFetchSecure(
     `api/user/${user?.email}`,
     user?.email
   );
   refetch();
+
+  if (isLoading || isPending) {
+    return;
+  }
 
   const userNavLink =
     data?.role === "System-Admin" ? (
@@ -28,8 +32,8 @@ const DashboardNavbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-pink-600 underline underline-offset-8 btn"
-              : "opacity-80 hover:text-pink-600 btn"
+              ? "text-pink-600 underline underline-offset-8 btn border-none"
+              : "text-sky-400 opacity-80 hover:text-pink-600 btn border-none"
           }
         >
           <MdManageHistory /> Manage Shop
@@ -40,8 +44,8 @@ const DashboardNavbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-pink-600 underline underline-offset-8 btn"
-              : "opacity-80 hover:text-pink-600 btn"
+              ? "text-pink-600 underline underline-offset-8 btn border-none"
+              : "text-sky-400 opacity-80 hover:text-pink-600 btn border-none"
           }
         >
           <GiProfit />
@@ -56,8 +60,8 @@ const DashboardNavbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-pink-600 underline underline-offset-8 btn"
-              : "opacity-80 hover:text-pink-600 btn"
+              ? "text-pink-600 underline underline-offset-8 btn border-none"
+              : "text-sky-400 opacity-80 hover:text-pink-600 btn border-none"
           }
         >
           <MdManageHistory /> Manage Product
@@ -68,8 +72,8 @@ const DashboardNavbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-pink-600 underline underline-offset-8 btn"
-              : "opacity-80 hover:text-pink-600 btn"
+              ? "text-pink-600 underline underline-offset-8 btn border-none"
+              : "text-sky-400 opacity-80 hover:text-pink-600 btn border-none"
           }
         >
           <BsCollectionFill />
@@ -81,8 +85,8 @@ const DashboardNavbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-pink-600 underline underline-offset-8 btn"
-              : "opacity-80 hover:text-pink-600 btn"
+              ? "text-pink-600 underline underline-offset-8 btn border-none"
+              : "text-sky-400 opacity-80 hover:text-pink-600 btn border-none"
           }
         >
           <GiProfit /> Sales Summary
@@ -93,8 +97,8 @@ const DashboardNavbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-pink-600 underline underline-offset-8 btn"
-              : "opacity-80 hover:text-pink-600 btn"
+              ? "text-pink-600 underline underline-offset-8 btn border-none"
+              : "text-sky-400 opacity-80 hover:text-pink-600 btn border-none"
           }
         >
           <MdPayment /> Subscription
@@ -103,7 +107,7 @@ const DashboardNavbar = () => {
     );
 
   return (
-    <div className="flex flex-col justify-between gap-10 px-10">
+    <div className="flex flex-col justify-between gap-10 px-5 sm:px-10">
       <div className="flex flex-col justify-center items-center  mt-10">
         <Link to={"/"} className="flex justify-center items-center gap-3">
           <img className="w-7 h-7" src={logo} alt="" />
@@ -141,7 +145,7 @@ const DashboardNavbar = () => {
       </div>
       <hr />
       <div>
-        <ul className="flex flex-col gap-5 xl:text-lg">{userNavLink}</ul>
+        <ul className="flex flex-col gap-5">{userNavLink}</ul>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import useFetchSecure from "../../../../hooks/useFetchSecure";
 import useAuth from "../../../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
+import { HashLoader } from "react-spinners";
 
 const stripePubKey = import.meta.env.VITE_PAYMENT_PK_KEY;
 const stripePromise = loadStripe(stripePubKey);
@@ -19,8 +20,12 @@ const CheckOut = () => {
     isLoading,
   } = useFetchSecure(`/api/product/id/${id}`, ["checkoutData", id]);
 
-  if ((isLoading, isPending)) {
-    return;
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
   }
 
   const sellPriceDiscount =

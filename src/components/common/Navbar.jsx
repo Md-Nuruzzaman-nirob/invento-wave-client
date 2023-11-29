@@ -8,6 +8,8 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { GoHomeFill } from "react-icons/go";
 import { FaStore } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
+import Button from "../shared/Button";
+import { HashLoader } from "react-spinners";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -36,11 +38,19 @@ const Navbar = () => {
     };
   }, []);
 
-  const { data, refetch } = useFetchSecure(
+  const { data, refetch, isLoading, isPending } = useFetchSecure(
     `api/user/${user?.email}`,
     user?.email
   );
   refetch();
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
 
   const navLink = (
     <>
@@ -51,7 +61,7 @@ const Navbar = () => {
             ? "pending"
             : isActive
             ? "text-pink-600 underline underline-offset-8"
-            : "text-sky-400 hover:text-pink-600"
+            : "text-sky-400 hover:underline underline-offset-8"
         }
       >
         Home
@@ -64,7 +74,7 @@ const Navbar = () => {
               ? "pending"
               : isActive
               ? "text-pink-600 underline underline-offset-8"
-              : "text-sky-400 hover:text-pink-600"
+              : "text-sky-400 hover:underline underline-offset-8"
           }
         >
           Dashboard
@@ -77,23 +87,23 @@ const Navbar = () => {
               ? "pending"
               : isActive
               ? "text-pink-600 underline underline-offset-8"
-              : "text-sky-400 hover:text-pink-600"
+              : "text-sky-400 hover:underline underline-offset-8 "
           }
         >
           Dashboard
         </NavLink>
       ) : (
         <NavLink
-          to="/create-store"
+          to="/create-shop"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
               : isActive
               ? "text-pink-600 underline underline-offset-8"
-              : "text-sky-400 hover:text-pink-600"
+              : "text-sky-400 hover:underline underline-offset-8"
           }
         >
-          Create Store
+          Create Shop
         </NavLink>
       )}
     </>
@@ -101,7 +111,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed z-[100] w-full text-white ${
+      className={`fixed z-[100] w-full ${
         scrolled
           ? "bg-gradient-to-tr from-[#3a59af] to-[#352786] py-4 transition-all duration-700 ease-in-out"
           : "bg-transparent py-6 transition-all duration-700 ease-in-out"
@@ -120,25 +130,18 @@ const Navbar = () => {
       <div className="max-w-7xl mx-5 md:mx-10 xl:mx-auto flex justify-between items-center">
         {/* logo + name */}
         <Link to={"/"} className="flex items-center gap-3">
-          <img className="w-8 h-8" src={logo} alt="" />
-          <h2 className="text-xl md:text-xl lg:text-3xl font-semibold text-sky-400">
-            Invento <span className="text-pink-600">Wave</span>
-          </h2>
+          <img className="w-10 h-10" src={logo} alt="" />
+          <h2 className="text-2xl font-medium text-pink-600">Invento Wave</h2>
         </Link>
 
-        {/* navLink */}
-        <div className="hidden lg:flex items-center gap-8 text-lg font-bold">
+        <div className="hidden lg:flex items-center gap-10 text-lg font-medium">
           {navLink}
-        </div>
-
-        {/* auth */}
-        <div className="hidden lg:flex items-center gap-8">
           {user?.email ? (
             <div className="relative">
               {user?.photoURL ? (
                 <button
                   onClick={() => setToggleProfile(!toggleProfile)}
-                  className="btn btn-circle overflow-hidden border-2 border-none hover:border-none bg-transparent hover:bg-transparent"
+                  className="btn btn-circle overflow-hidden border-none hover:border-none bg-transparent hover:bg-transparent"
                 >
                   <img className="w-full h-full" src={user.photoURL} alt="" />
                 </button>
@@ -182,15 +185,12 @@ const Navbar = () => {
               {" "}
               <Link
                 to={"/login"}
-                className="btn btn-sm text-base text-pink-600 border border-pink-600  hover:border-pink-700 bg-transparent hover:bg-transparent px-3 rounded-md"
+                className="btn btn-sm text-lg text-sky-400 hover:underline underline-offset-8 border-none bg-transparent hover:bg-transparent px-3 rounded-md"
               >
                 Login
               </Link>
-              <Link
-                to={"/register"}
-                className="btn btn-sm rounded-md bg-pink-600 border-none text-white hover:bg-pink-700"
-              >
-                Register
+              <Link to={"/register"}>
+                <Button>Register</Button>
               </Link>
             </>
           )}
@@ -326,7 +326,7 @@ const Navbar = () => {
             </NavLink>
           ) : (
             <NavLink
-              to="/create-store"
+              to="/create-shop"
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
@@ -336,7 +336,7 @@ const Navbar = () => {
               }
             >
               <FaStore />
-              Create Store
+              Create Shop
             </NavLink>
           )}
         </div>

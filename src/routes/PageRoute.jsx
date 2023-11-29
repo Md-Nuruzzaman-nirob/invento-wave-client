@@ -19,6 +19,8 @@ import PriceCheckout from "../pages/dashboard/manager/subscription/PriceCheckout
 import AdminRoute from "./AdminRoute";
 import UnauthorizedErrorPage from "../pages/error/UnauthorizedErrorPage";
 import AdminManageShop from "../pages/dashboard/admin/manageShop/AdminManageShop";
+import ShopManagerRoute from "./ShopManagerRoute";
+import ForbiddenErrorPage from "../pages/error/ForbiddenErrorPage";
 
 const PageRoute = createBrowserRouter([
   {
@@ -32,7 +34,7 @@ const PageRoute = createBrowserRouter([
         loader: () => fetch("/pricing.json"),
       },
       {
-        path: "create-store",
+        path: "create-shop",
         element: (
           <PrivateRoute>
             <CreateStorePage />
@@ -60,37 +62,71 @@ const PageRoute = createBrowserRouter([
       // manager dashboard routes //
       {
         path: "manage-product",
-        element: <ManageProduct />,
+        element: (
+          <ShopManagerRoute>
+            <ManageProduct />
+          </ShopManagerRoute>
+        ),
       },
       {
         path: "sales-Collection",
-        element: <SalesCollection />,
+        element: (
+          <ShopManagerRoute>
+            <SalesCollection />
+          </ShopManagerRoute>
+        ),
       },
       {
         path: "shop-sale-summery",
-        element: <ShopSaleSummery />,
+        element: (
+          <ShopManagerRoute>
+            <ShopSaleSummery />
+          </ShopManagerRoute>
+        ),
       },
       {
         path: "subscription",
-        element: <SubscriptionPayment />,
+        element: (
+          <ShopManagerRoute>
+            <SubscriptionPayment />
+          </ShopManagerRoute>
+        ),
         loader: () => fetch("/pricing.json"),
       },
       {
         path: "manage-product/add-product",
-        element: <AddProduct />,
+        element: (
+          <ShopManagerRoute>
+            <AddProduct />
+          </ShopManagerRoute>
+        ),
       },
       {
         path: "sales-Collection/checkout/:id",
-        element: <CheckOut />,
+        element: (
+          <ShopManagerRoute>
+            {" "}
+            <CheckOut />
+          </ShopManagerRoute>
+        ),
       },
       {
         path: "subscription/checkout/:plan",
-        element: <PriceCheckout />,
+        element: (
+          <ShopManagerRoute>
+            {" "}
+            <PriceCheckout />
+          </ShopManagerRoute>
+        ),
         loader: () => fetch("/pricing.json"),
       },
       {
         path: "manage-product/update-product/:id",
-        element: <UpdateProduct />,
+        element: (
+          <ShopManagerRoute>
+            <UpdateProduct />
+          </ShopManagerRoute>
+        ),
       },
 
       // admin dashboard routes //
@@ -116,6 +152,10 @@ const PageRoute = createBrowserRouter([
   {
     path: "/error/unauthorized",
     element: <UnauthorizedErrorPage />,
+  },
+  {
+    path: "/error/forbidden",
+    element: <ForbiddenErrorPage />,
   },
 ]);
 

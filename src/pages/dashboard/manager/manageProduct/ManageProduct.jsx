@@ -1,4 +1,3 @@
-import Title from "../../../../components/shared/Title";
 import { PiNotePencilFill } from "react-icons/pi";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -7,6 +6,9 @@ import useFetchSecure from "../../../../hooks/useFetchSecure";
 import useSecureAPI from "../../../../hooks/useSecureAPI";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { HashLoader } from "react-spinners";
+import Button from "../../../../components/shared/Button";
+import Title from "../../../../components/shared/Title";
 
 const ManageProduct = () => {
   const { user } = useAuth();
@@ -16,10 +18,19 @@ const ManageProduct = () => {
     `/api/product/${user?.email}`,
     "allProductData"
   );
-  const { data: shopData } = useFetchSecure(
-    `/api/shop/${user?.email}`,
-    "shopData"
-  );
+  const {
+    data: shopData,
+    isLoading,
+    isPending,
+  } = useFetchSecure(`/api/shop/${user?.email}`, "shopData");
+
+  if (isLoading || isPending) {
+    return (
+      <p className="h-screen flex items-center justify-center">
+        <HashLoader color="#0ea5e9" />
+      </p>
+    );
+  }
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -45,8 +56,6 @@ const ManageProduct = () => {
     });
   };
 
-  console.log(shopData);
-
   return (
     <>
       <Helmet>
@@ -54,7 +63,7 @@ const ManageProduct = () => {
       </Helmet>
       <div className="">
         <Title title={"Manage Products"} />
-        <div className="flex justify-around items-center mt-10">
+        <div className="hidden sm:flex justify-around items-center mt-10">
           <h3 className="text-lg font-medium text-black/80">
             Total Product :{" "}
             <span className="badge badge-lg bg-sky-500 text-white">
@@ -71,6 +80,35 @@ const ManageProduct = () => {
               {shopData?.limit || 0}
             </span>
           </h3>
+          {shopData?.limit > 0 && shopData?.limit !== null ? (
+            <Link to={"/dashboard/manage-product/add-product"}>
+              <Button> Add Your Product</Button>
+            </Link>
+          ) : (
+            <Button disabled={shopData?.limit === null || shopData?.limit <= 0}>
+              Add Your Product
+            </Button>
+          )}
+        </div>
+        <div className="text-sm flex justify-between items-center sm:hidden mt-10">
+          <div className="space-y-2">
+            <h3 className=" text-black/80">
+              Total Product :{" "}
+              <span className="badge bg-sky-500 text-white">
+                {productData?.length}
+              </span>
+            </h3>
+            <h3 className=" text-black/80">
+              Product Add Limit :{" "}
+              <span
+                className={`badge text-white ${
+                  shopData.limit > 0 ? "bg-green-600 " : "bg-red-600"
+                }`}
+              >
+                {shopData?.limit || 0}
+              </span>
+            </h3>
+          </div>
           {shopData?.limit > 0 && shopData?.limit !== null ? (
             <Link
               to={"/dashboard/manage-product/add-product"}

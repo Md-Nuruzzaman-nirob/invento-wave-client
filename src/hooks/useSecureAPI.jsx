@@ -26,7 +26,7 @@ const useSecureAPI = () => {
         <NavLink to={"/error/unauthorized"}></NavLink>;
       }
       if (status === 403) {
-        <NavLink to={"/error/unauthorized"}></NavLink>;
+        <NavLink to={"/error/forbidden"}></NavLink>;
       }
       logout();
     }
