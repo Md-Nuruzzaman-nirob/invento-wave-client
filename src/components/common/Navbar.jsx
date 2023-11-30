@@ -161,19 +161,19 @@ const Navbar = () => {
                 <div className="w-52 absolute top-16 right-0 bg-white text-black rounded-md p-3 space-y-3">
                   <h2
                     title={user?.displayName}
-                    className="btn btn-sm w-full text-base justify-start rounded-md overflow-hidden"
+                    className="btn btn-sm w-full justify-start rounded-md overflow-hidden text-sm"
                   >
                     {user?.displayName}
                   </h2>
                   <h2
                     title={user?.email}
-                    className="btn btn-sm w-full text-base justify-start rounded-md overflow-hidden"
+                    className="btn btn-sm w-full justify-start rounded-md overflow-hidden text-sm"
                   >
                     {user?.email}
                   </h2>
                   <button
                     onClick={() => logout()}
-                    className="btn btn-sm w-full text-base rounded-md"
+                    className="btn btn-sm w-full rounded-md text-sm"
                   >
                     Log out
                   </button>

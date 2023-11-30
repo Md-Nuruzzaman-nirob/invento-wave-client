@@ -15,7 +15,7 @@ import useSecureAPI from "../../../hooks/useSecureAPI";
 const AdminSaleSummery = () => {
   const [usersData, setUsersData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(2);
+  const [itemPerPage] = useState(10);
   const products = useLoaderData();
   const axiosSecure = useSecureAPI();
 
