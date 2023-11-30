@@ -55,7 +55,13 @@ const SaleSummeryForm = ({ data, index }) => {
         <td>
           <div>
             {data?.role === "System-Admin" ? (
-              "-"
+              <Button disabled={true}>
+                {" "}
+                <span className="flex items-center justify-center gap-2">
+                  {" "}
+                  <BiSolidMessageRounded /> Send Email
+                </span>
+              </Button>
             ) : (
               <>
                 <Button

@@ -4,8 +4,11 @@ import useFetchSecure from "../../../hooks/useFetchSecure";
 import { Helmet } from "react-helmet-async";
 import { HashLoader } from "react-spinners";
 import Button from "../../../components/shared/Button";
+import { useState } from "react";
+import { RiSearch2Fill } from "react-icons/ri";
 
 const SalesCollection = () => {
+  const [search, setSearch] = useState("");
   const { user } = useAuth();
 
   const {
@@ -14,12 +17,17 @@ const SalesCollection = () => {
     isLoading,
     isPending,
   } = useFetchSecure(
-    `api/product/${user?.email}`,
+    `api/product/${user?.email}?search=${search}`,
     `"productData",
     ${user?.email}`
   );
-  refetch();
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    refetch();
+  };
+
+  refetch();
   if (isLoading || isPending) {
     return (
       <p className="h-screen flex items-center justify-center">
@@ -43,8 +51,21 @@ const SalesCollection = () => {
             </span>
           </h3>
 
-          {/* TODO : ==================== */}
-          <input type="text" name="" id="" />
+          <form onSubmit={handleSearch} className="flex items-center">
+            <input
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              className="px-3 py-1 outline-none rounded-md rounded-r-none text-start border-white"
+              placeholder="Search..."
+            />
+            <button
+              type="submit"
+              className="btn btn-sm rounded-l-none bg-pink-600 hover:bg-pink-700 text-white border-none whitespace-nowrap"
+            >
+              <RiSearch2Fill />
+              Search
+            </button>
+          </form>
         </div>
         <div className="overflow-x-auto mt-5 sm:mt-10 mb-20 ">
           <table className="table text-center">
