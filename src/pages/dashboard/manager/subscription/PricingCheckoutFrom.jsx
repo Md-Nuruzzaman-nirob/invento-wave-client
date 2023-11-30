@@ -101,7 +101,6 @@ const PricingCheckoutFrom = ({ findData }) => {
             axiosSecure
               .patch(`/api/shop/update/${user?.email}`, updateShopInfo)
               .then((res) => {
-                console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                   toast.success("Payment Successful", {
                     id: toastId,

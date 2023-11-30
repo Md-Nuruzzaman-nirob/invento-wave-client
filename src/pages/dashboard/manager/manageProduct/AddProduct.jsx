@@ -158,6 +158,7 @@ const AddProduct = () => {
               <input
                 {...register("productQuantity", {
                   required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 type="text"
@@ -167,6 +168,9 @@ const AddProduct = () => {
                 <span className="text-red-600">
                   *product quantity is required.
                 </span>
+              )}
+              {errors.productQuantity?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
               )}
             </div>
           </div>
@@ -198,6 +202,7 @@ const AddProduct = () => {
               <input
                 {...register("productionCost", {
                   required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter production cost..."
@@ -207,6 +212,9 @@ const AddProduct = () => {
                 <span className="text-red-600">
                   *production cost is required.
                 </span>
+              )}
+              {errors.productionCost?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
               )}
             </div>
           </div>
@@ -219,6 +227,7 @@ const AddProduct = () => {
               <input
                 {...register("profitMargin", {
                   required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter profit margin..."
@@ -229,6 +238,9 @@ const AddProduct = () => {
                   *profit margin is required.
                 </span>
               )}
+              {errors.profitMargin?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
+              )}
             </div>
 
             <div className="flex-1">
@@ -236,11 +248,14 @@ const AddProduct = () => {
                 Discount (%)
               </label>
               <input
-                {...register("discount")}
+                {...register("discount", { pattern: /^[0-9]+$/ })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter discount..."
                 type="text"
               />
+              {errors.discount?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
+              )}
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-5 mt-5">

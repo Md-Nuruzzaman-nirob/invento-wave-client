@@ -141,6 +141,7 @@ const UpdateProduct = () => {
               <input
                 {...register("productQuantity", {
                   // required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter product quantity..."
@@ -151,6 +152,9 @@ const UpdateProduct = () => {
                 <span className="text-red-600">
                   *product quantity is required.
                 </span>
+              )}
+              {errors.productQuantity?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
               )}
             </div>
           </div>
@@ -183,6 +187,7 @@ const UpdateProduct = () => {
               <input
                 {...register("productionCost", {
                   // required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter production cost..."
@@ -193,6 +198,9 @@ const UpdateProduct = () => {
                 <span className="text-red-600">
                   *production cost is required.
                 </span>
+              )}
+              {errors.productionCost?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
               )}
             </div>
           </div>
@@ -205,6 +213,7 @@ const UpdateProduct = () => {
               <input
                 {...register("profitMargin", {
                   // required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter profit margin..."
@@ -215,6 +224,9 @@ const UpdateProduct = () => {
                 <span className="text-red-600">
                   *profit margin is required.
                 </span>
+              )}
+              {errors.profitMargin?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
               )}
             </div>
 

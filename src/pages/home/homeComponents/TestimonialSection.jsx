@@ -33,38 +33,9 @@ const TestimonialSection = () => {
     );
   }
 
-  console.log(testimonialData);
-
   return (
     <Container className={"mt-20 mb-28"}>
       {" "}
-      {/* <AutoplaySlider play={true} cancelOnInteraction={false} interval={6000}>
-        {testimonialData.map((testimonial) => (
-          <div
-            key={testimonial._id}
-            className="w-full h-full bg-gradient-to-b from-[#352786] via-[#3a59af] to-[#352786] text-white flex items-center justify-center rounded-md"
-          >
-            <div className="text-center w-10/12 mx-auto mb-10 lg:mb-20">
-              <div className="flex flex-col justify-center items-center">
-                <Rating
-                  style={{ maxWidth: 100 }}
-                  value={testimonial.rating}
-                  readOnly
-                />
-              </div>
-              <p className="text-xs md:text-sm lg:text-base">
-                {testimonial?.testimonial}
-              </p>
-              <h3 className="text-[#BB8506] text-xl font-medium mt-2">
-                {testimonial.date}
-              </h3>
-              <h3 className="text-[#BB8506] text-xl font-medium mt-2">
-                {testimonial.author}
-              </h3>
-            </div>
-          </div>
-        ))}
-      </AutoplaySlider> */}
       <Title
         section={"TESTIMONIALS"}
         title={"What Our Clients Say About Invento Wave"}

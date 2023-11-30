@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { HashLoader } from "react-spinners";
 import Button from "../../../../components/shared/Button";
+import image from "../../../../assets/noData.png";
 
 const ManageProduct = () => {
   const { user } = useAuth();
@@ -41,7 +42,7 @@ const ManageProduct = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/api/delete/update/${id}`).then((resData) => {
+        axiosSecure.delete(`/api/product/delete/${id}`).then((resData) => {
           if (resData.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
@@ -125,22 +126,22 @@ const ManageProduct = () => {
           )}
         </div>
         <div className="overflow-x-auto mt-10 mb-20">
-          <table className="table text-center">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Products Image</th>
-                <th>Products Name</th>
-                <th>Products Quantity</th>
-                <th>Products Code</th>
-                <th>Sale Count</th>
-                <th>Update Products</th>
-                <th>Delete Products</th>
-              </tr>
-            </thead>
-            <tbody>
-              {productData.length > 0 &&
-                productData?.map((data, index) => (
+          {productData.length > 0 ? (
+            <table className="table text-center">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Products Image</th>
+                  <th>Products Name</th>
+                  <th>Products Quantity</th>
+                  <th>Products Code</th>
+                  <th>Sale Count</th>
+                  <th>Update Products</th>
+                  <th>Delete Products</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productData?.map((data, index) => (
                   <tr key={data._id} className="hover">
                     <th>{index + 1}</th>
                     <td className="flex items-center justify-center">
@@ -182,8 +183,13 @@ const ManageProduct = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          ) : (
+            <p className="flex items-center justify-center my-20">
+              <img src={image} alt="" />
+            </p>
+          )}
         </div>
       </div>
     </>
