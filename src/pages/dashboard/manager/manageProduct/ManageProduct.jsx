@@ -111,7 +111,7 @@ const ManageProduct = () => {
           {shopData?.limit > 0 && shopData?.limit !== null ? (
             <Link
               to={"/dashboard/manage-product/add-product"}
-              className="btn btn-sm bg-sky-500 hover:bg-sky-600 text-white border-none font-medium"
+              className="btn btn-sm bg-pink-600 hover:bg-pink-700 text-white border-none font-medium"
             >
               Add Your Product
             </Link>

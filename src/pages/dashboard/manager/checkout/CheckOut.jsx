@@ -6,10 +6,13 @@ import useFetchSecure from "../../../../hooks/useFetchSecure";
 import useAuth from "../../../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import { HashLoader } from "react-spinners";
+import { useState } from "react";
 
 const stripePubKey = import.meta.env.VITE_PAYMENT_PK_KEY;
 const stripePromise = loadStripe(stripePubKey);
 const CheckOut = () => {
+  const [discount, setDiscount] = useState(false);
+
   const { user } = useAuth();
   const { id } = useParams();
 
@@ -34,27 +37,27 @@ const CheckOut = () => {
   return (
     <>
       <Helmet>
-        <title>Check - Invento Wave</title>
+        <title>Check Out - Invento Wave</title>
       </Helmet>
       <div className="mb-10">
         <h3 className="font-semibold mb-5">
           Dashboard/Sales Collection/Check Out
         </h3>
-        <div className="flex justify-center mt-10 sm:w-3/5  2xl:w-1/3 mx-auto">
-          <div className="card shadow-md bg-base-100 rounded-md p-5 sm:p-10">
+        <div className="flex justify-center mt-10 sm:w-4/5  xl:w-2/4 mx-auto">
+          <div className="card shadow-md bg-base-100 rounded-md p-6 sm:p-10 w-full">
             <figure>
               <img
-                className="rounded-md max-h-[300px]"
+                className="rounded-md max-h-[300px] w-full object-cover"
                 src={productData?.productImage}
                 alt="Shoes"
               />
             </figure>
             <div className="card-body p-0 pt-5">
               <div className="flex justify-between items-center">
-                <h2 className="text-lg sm:text-xl font-semibold">
+                <h2 className="text-lg sm:text-xl font-medium">
                   {productData?.productName}
                 </h2>
-                <h3 className=" lg:text-lg font-bold">
+                <h3 className=" lg:text-lg font-medium">
                   ${productData?.sellingPrice}
                 </h3>
               </div>
@@ -64,9 +67,9 @@ const CheckOut = () => {
                   <span className="text-black ">{productData?.shopName}</span>
                 </h2>
                 <h3>
-                  Discount :{" "}
-                  <span className="text-red-500 font-semibold">
-                    {productData?.discountPercent}%
+                  Code :{" "}
+                  <span className="text-sky-500 font-semibold">
+                    {productData?.productCode}
                   </span>
                 </h3>
               </div>
@@ -78,21 +81,46 @@ const CheckOut = () => {
                     {productData?.productLocation}
                   </span>
                 </h2>
-                <h3>
-                  Code :{" "}
-                  <span className="text-sky-500 font-semibold">
-                    {productData?.productCode}
+                <h2>
+                  Discount :{" "}
+                  <span className="text-red-600">
+                    {productData?.discountPercent}%
                   </span>
-                </h3>
+                </h2>
+              </div>
+              <div className="flex justify-end items-center text-xs sm:text-sm lg:text-base">
+                <button
+                  onClick={() => setDiscount(!discount)}
+                  className={`btn btn-xs whitespace-nowrap font-normal border-none ${
+                    !discount ? "bg-pink-600 hover:bg-pink-700 text-white" : ""
+                  }`}
+                >
+                  {discount
+                    ? `${productData?.discountPercent}% Discount Applied`
+                    : "Apply Discount"}
+                </button>
               </div>
 
               <div className="w-full">
-                <div className="text-center my-5">
-                  <h3 className=" font-semibold">Payment Information</h3>
-                  <h3 className="text-xs sm:text-sm lg:text-base">
+                <div className="text-center my-5 relative">
+                  <h3 className=" font-semibold mb-1">Payment Information</h3>
+                  {discount ? (
+                    <h3>
+                      discount :{" "}
+                      <span className="text-red-500">${sellPriceDiscount}</span>
+                    </h3>
+                  ) : (
+                    <h3>
+                      discount : <span className="text-red-500">$0</span>
+                    </h3>
+                  )}
+                  <h3 className="text-xs sm:text-sm lg:text-base mt-1">
                     payable price :{" "}
-                    <span className="text-green-600 font-semibold">
-                      ${Math.round(sellPrice)}
+                    <span className="text-green-600">
+                      $
+                      {discount
+                        ? Math.round(sellPrice)
+                        : productData?.sellingPrice}
                     </span>
                   </h3>
                 </div>
@@ -100,7 +128,11 @@ const CheckOut = () => {
                   <CheckoutForm
                     user={user}
                     productData={productData}
-                    sellPrice={Math.round(sellPrice)}
+                    sellPrice={
+                      discount
+                        ? Math.round(sellPrice)
+                        : productData?.sellingPrice
+                    }
                     isLoading={isLoading}
                     isPending={isPending}
                   />

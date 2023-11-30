@@ -5,6 +5,7 @@ import FAQSection from "./homeComponents/FAQSection";
 import PricingSection from "./homeComponents/PricingSection";
 import SponsorsSection from "./homeComponents/SponsorsSection";
 import AchievementSection from "./homeComponents/AchievementSection";
+import TestimonialSection from "./homeComponents/TestimonialSection";
 
 const HomePage = () => {
   return (
@@ -18,6 +19,7 @@ const HomePage = () => {
         <PricingSection />
         <FAQSection />
         <SponsorsSection />
+        <TestimonialSection />
         <Contact />
       </div>
     </>
