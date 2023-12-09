@@ -1,8 +1,7 @@
-# React + Vite
+# Invento Wave Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Invento Wave is a simple inventory management system website that will provide management capabilities to the registered shop like managing product, managing discounts, managing categories, managing sales , invoice generation, and many more.
 
-Currently, two official plugins are available:
+# Invento Wave Server Side Link :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+server side link : https://github.com/Md-Nuruzzaman-nirob/invento-wave-server
