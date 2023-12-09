@@ -237,6 +237,7 @@ const UpdateProduct = () => {
               <input
                 {...register("discount", {
                   // required: true,
+                  pattern: /^[0-9]+$/,
                 })}
                 className="w-full mt-2 px-4 py-2 border  outline-none focus:border-sky-500 text-sm opacity-80 rounded-md"
                 placeholder="Enter discount..."
@@ -245,6 +246,9 @@ const UpdateProduct = () => {
               />
               {errors.discount?.type === "required" && (
                 <span className="text-red-600">*discount is required.</span>
+              )}
+              {errors.discount?.type === "pattern" && (
+                <span className="text-red-600">*please enter a number.</span>
               )}
             </div>
           </div>

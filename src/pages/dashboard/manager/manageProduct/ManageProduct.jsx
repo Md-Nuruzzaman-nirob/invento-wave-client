@@ -42,7 +42,7 @@ const ManageProduct = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/api/product/delete/${id}`).then((resData) => {
+        axiosSecure.delete(`/api/delete/update/${id}`).then((resData) => {
           if (resData.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
