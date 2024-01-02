@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 
-const Button = ({ onClick, disabled, children, className }) => {
+const Button = ({ children, className, ...restProps }) => {
   return (
     <button
       className={`btn btn-sm font-Fira font-medium rounded-md whitespace-nowrap bg-pink-600 hover:bg-pink-700 text-white border-none ${className}`}
-      onClick={onClick}
-      disabled={disabled}
+      {...restProps}
     >
       {children}
     </button>
@@ -15,8 +14,7 @@ const Button = ({ onClick, disabled, children, className }) => {
 Button.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
+  restProps: PropTypes.array,
 };
 
 export default Button;

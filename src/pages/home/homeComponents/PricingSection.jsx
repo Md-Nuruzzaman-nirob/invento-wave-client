@@ -31,15 +31,13 @@ const PricingSection = () => {
 
   return (
     <div id="pricing">
-      <Container className={"py-20"}>
+      <Container className="py-24">
         <Title
           section={"PRICING"}
           title={"Pricing Plane For You"}
-          subTitle="At Invento Wave, we understand the diverse needs of businesses when it comes
-    to efficient inventory management. Choose from our thoughtfully crafted
+          subTitle="Choose from our thoughtfully crafted
     pricing plans to streamline your operations and elevate your inventory
-    control. Whether you're a small business, a growing enterprise, or an
-    established organization, our plans cater to all scales."
+    control."
         />
         <div className="flex flex-col lg:flex-row justify-center lg:justify-between gap-10 lg:gap-0 my-10 sm:my-20">
           {pricing.map((data) => (
@@ -119,16 +117,16 @@ const PricingSection = () => {
                 </Link>
               ) : userData.role === "System-Admin" ? (
                 <>
-                  <button
-                    className=" btn w-full bg-sky-500 hover:bg-sky-600 text-white border-none text-lg font-normal"
+                  <Button
                     data-aos="flip-up"
                     data-aos-duration="500"
                     onClick={() =>
                       document.getElementById("my_modal_2").showModal()
                     }
+                    className="w-full h-10 bg-sky-500 hover:bg-sky-600 text-lg font-normal"
                   >
                     Choose Plan
-                  </button>
+                  </Button>
                   <dialog id="my_modal_2" className="modal -z-1">
                     <div className="modal-box text-center">
                       <p className="mt-10 mb-5 flex items-center justify-center">

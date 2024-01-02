@@ -10,6 +10,7 @@ import { FaStore } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 import Button from "../shared/Button";
 import { HashLoader } from "react-spinners";
+import Container from "../shared/Container";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -127,13 +128,13 @@ const Navbar = () => {
           <IoMdArrowDropup className="w-10 h-10" />
         </button>
       </div>
-      <div className="max-w-7xl mx-5 md:mx-10 xl:mx-auto flex justify-between items-center">
+      <Container className="flex justify-between items-center">
+        {" "}
         {/* logo + name */}
         <Link to={"/"} className="flex items-center gap-3">
           <img className="w-10 h-10" src={logo} alt="" />
           <h2 className="text-2xl font-medium text-pink-600">Invento Wave</h2>
         </Link>
-
         <div className="hidden lg:flex items-center gap-10 text-lg font-medium">
           {navLink}
           {user?.email ? (
@@ -195,7 +196,6 @@ const Navbar = () => {
             </>
           )}
         </div>
-
         <div className="lg:hidden">
           <label className="btn btn-square swap swap-rotate rounded-md  bg-pink-600 hover:bg-pink-700 text-white border-none">
             {/* this hidden checkbox controls the state */}
@@ -224,14 +224,14 @@ const Navbar = () => {
             </svg>
           </label>
         </div>
-      </div>
+      </Container>
 
       <div
         className={`lg:hidden fixed top-0 left-0 h-screen w-4/6 sm:w-2/5   bg-white transition-transform transform ${
           toggleMenu ? "translate-x-0" : "-translate-x-full"
         } duration-500 ease-in-out z-50`}
       >
-        <div className="flex flex-col mt-16 px-5 sm:px-10 gap-3">
+        <div className="flex flex-col my-8 px-5 sm:px-10 gap-3">
           <Link
             to={"/"}
             className="flex justify-center items-center gap-3 mb-3"

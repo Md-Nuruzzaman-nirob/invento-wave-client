@@ -126,7 +126,7 @@ const Contact = () => {
               data-aos-duration="500"
             >
               <input
-                className="btn btn-sm px-10 bg-pink-600 hover:bg-pink-700 text-lg text-white rounded-md font-normal"
+                className="btn btn-sm h-10 px-10 bg-pink-600 hover:bg-pink-700 text-lg text-white rounded-md font-normal"
                 type="submit"
                 value="Sent"
               />

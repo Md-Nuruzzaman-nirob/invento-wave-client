@@ -34,14 +34,15 @@ const TestimonialSection = () => {
   }
 
   return (
-    <Container className={"mt-20 mb-28"}>
+    <Container className="my-24">
       {" "}
       <Title
         section={"TESTIMONIALS"}
-        title={"What Our Clients Say About Invento Wave"}
+        title={"Client Reviews About Invento Wave"}
         subTitle={
-          "Dive into success with Invento Wave! Explore testimonials from satisfied clients, riding the wave of efficient inventory management. Join us as we optimize businesses with seamless inventory control, making Invento Wave the driving force for success."
+          "Discover client praise for Invento Wave's efficient inventory management. Join us for seamless control, making it a key success factor for businesses."
         }
+        className="mb-20"
       />
       <Swiper
         slidesPerView={1}
@@ -54,17 +55,17 @@ const TestimonialSection = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        scrollbar={true}
+        scrollbar={false}
         navigation={true}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         modules={[Autoplay, Keyboard, Scrollbar, Navigation, Pagination]}
         className="mySwiper"
       >
         {testimonialData?.map((review) => (
           <SwiperSlide key={review._id}>
-            <div className="flex items-center justify-center w-4/5 lg:w-3/5 mx-auto h-[300px] lg:h-[400px] my-20">
+            <div className="flex items-center justify-center w-4/5 lg:w-3/5 mx-auto h-[300px] lg:h-[400px]">
               <div className="bg-[#f8f9fa] flex flex-col items-center justify-center p-5 sm:p-10 rounded-md">
                 <div className="w-16 h-16 sm:w-20 sm:h-20  overflow-hidden rounded-full mt-3">
                   <FaUser className="w-full h-full text-sky-500" />

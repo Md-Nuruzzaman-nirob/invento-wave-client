@@ -6,7 +6,7 @@ import { GiAchievement } from "react-icons/gi";
 
 const AchievementSection = () => {
   return (
-    <div className="bg-gradient-to-b from-[#3a59af] to-[#352786] text-white">
+    <div className="bg-gradient-to-br from-[#3a59af] to-[#352786] text-white">
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 h-[600px] lg:h-[500px]">
           <div
