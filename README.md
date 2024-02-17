@@ -4,6 +4,6 @@ Invento Wave is a simple inventory management system website that will provide m
 
 # Invento Wave Links :
 
-server side link : https://github.com/Md-Nuruzzaman-nirob/invento-wave-server
+- server side link : https://github.com/Md-Nuruzzaman-nirob/invento-wave-server
 
-live link : https://invento-wave.web.app/
+- live link : https://invento-wave.web.app/
